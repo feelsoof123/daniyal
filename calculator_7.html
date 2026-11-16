@@ -1,0 +1,826 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="./favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+  <link rel="manifest" href="manifest.json">
+<title>MS Sheet Calculator</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #0b1220;
+    color: white;
+    min-height: 100vh;
+    padding: 20px;
+}
+/* Disable text selection */
+body {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.container {
+    max-width: 950px;
+    margin: auto;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 35px;
+    gap: 10px;
+  padding-right: 180px;
+}
+
+.logo {
+    color: #ffb83f;
+    font-size: 23px;
+    font-weight: bold;
+}
+
+button {
+    cursor: pointer;
+}
+
+
+.hero {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.hero h1 {
+    font-size: clamp(26px, 5vw, 38px);
+    margin: 12px 0;
+}
+
+.hero p {
+    color: #9cacc0;
+    line-height: 1.6;
+}
+
+.layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+}
+
+.card {
+    background: #162338;
+    border: 1px solid #2d4059;
+    padding: 24px;
+    border-radius: 17px;
+}
+
+.card h2 {
+    font-size: 18px;
+    margin-bottom: 22px;
+}
+
+label {
+    display: block;
+    color: #c5d0df;
+    margin-bottom: 9px;
+    font-size: 13px;
+}
+
+select {
+    width: 100%;
+    padding: 15px;
+    background: #0c1728;
+    color: white;
+    border: 1px solid #344963;
+    border-radius: 9px;
+    margin-bottom: 22px;
+    font-size: 15px;
+}
+
+.weight-box {
+    background: linear-gradient(135deg,#49351b,#241e18);
+    border: 1px solid #80602b;
+    padding: 23px;
+    border-radius: 13px;
+    margin-bottom: 18px;
+}
+
+.weight-box small {
+    color: #f4c979;
+}
+
+.weight {
+    font-size: clamp(38px, 7vw, 52px);
+    font-weight: bold;
+    margin: 12px 0;
+    color: #ffdc9a;
+}
+
+.weight span {
+    font-size: 18px;
+}
+
+.details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.detail {
+    background: #0d192a;
+    border: 1px solid #30425a;
+    border-radius: 10px;
+    padding: 14px;
+}
+
+.detail small {
+    display: block;
+    color: #9eafc4;
+    margin-bottom: 8px;
+}
+
+.detail strong {
+    font-size: 15px;
+}
+
+.note {
+    color: #9eafc4;
+    font-size: 11px;
+    line-height: 1.6;
+    margin-top: 18px;
+}
+
+footer {
+    margin-top: 22px;
+    padding: 20px;
+    background: #162338;
+    border: 1px solid #2d4059;
+    border-radius: 13px;
+}
+
+.owner {
+    font-weight: bold;
+    margin-bottom: 13px;
+}
+
+.contacts {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.contacts a {
+    color: #ffca70;
+    text-decoration: none;
+    background: #29251e;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+@media(max-width:650px) {
+    .layout {
+        grid-template-columns: 1fr;
+    }
+
+    body {
+        padding: 12px;
+    }
+
+    .card {
+        padding: 19px;
+    }
+}
+
+#customSizeBox input {
+    width: 100%;
+    padding: 14px;
+    background: #0c1728;
+    color: white;
+    border: 1px solid #344963;
+    border-radius: 9px;
+    margin-bottom: 18px;
+    font-size: 15px;
+}
+/* CUT PIECE CALCULATOR */
+
+.cut-piece-box {
+    background: #172338;
+    border: 1px solid #33445f;
+    border-radius: 14px;
+    padding: 20px;
+    margin-top: 25px;
+}
+
+.cut-piece-box h2 {
+    color: #38bdf8;
+    margin-bottom: 18px;
+    font-size: 21px;
+}
+
+.cut-input-group {
+    display: grid;
+    grid-template-columns: 1fr 100px;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.cut-input-group input,
+.cut-input-group select,
+.cut-quantity {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #475569;
+    border-radius: 8px;
+    background: #0b1220;
+    color: white;
+    font-size: 15px;
+    outline: none;
+}
+
+.cut-input-group input:focus,
+.cut-input-group select:focus,
+.cut-quantity:focus {
+    border-color: #38bdf8;
+}
+
+.cut-piece-box label {
+    display: block;
+    margin-bottom: 7px;
+    color: #cbd5e1;
+    font-size: 14px;
+}
+
+.cut-result {
+    background: #0b1220;
+    border: 1px solid #38bdf8;
+    border-radius: 10px;
+    padding: 15px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.cut-result .result-title {
+    color: #94a3b8;
+    font-size: 14px;
+}
+
+.cut-result .result-value {
+    color: #38bdf8;
+    font-size: 27px;
+    font-weight: bold;
+    margin: 8px 0;
+}
+
+.cut-result .small-result {
+    color: #cbd5e1;
+    font-size: 14px;
+    margin-top: 8px;
+}
+
+.cut-calculate-btn {
+    width: 100%;
+    padding: 13px;
+    background: #0284c7;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.cut-calculate-btn:hover {
+    background: #0369a1;
+}
+
+.cut-error {
+    color: #f87171;
+    font-size: 13px;
+    margin-top: 10px;
+}
+
+@media (max-width: 480px) {
+    .cut-piece-box {
+        padding: 14px;
+    }
+
+    .cut-input-group {
+        grid-template-columns: 1fr 85px;
+    }
+}
+
+</style>
+
+<style id="uniBarStyle">
+/* ===== UNIFIED NAV BAR ===== */
+#uniBar {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+#uniHome, #uniTheme {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 11px 19px;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform .25s, box-shadow .25s;
+  text-decoration: none;
+  font-family: inherit;
+  letter-spacing: .01em;
+  white-space: nowrap;
+  user-select: none;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.45);
+}
+#uniHome {
+  background: linear-gradient(135deg,#f1d79d,#d9b56d);
+  color: #17130b;
+  border: 0;
+}
+#uniTheme {
+  background: rgba(255,255,255,0.10);
+  color: #f4f1e9;
+  border: 1px solid rgba(255,255,255,0.18);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+#uniHome:hover, #uniTheme:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.5);
+}
+/* Light Mode */
+body.u-light { filter: invert(1) hue-rotate(180deg); }
+body.u-light img,
+body.u-light video,
+body.u-light canvas { filter: invert(1) hue-rotate(180deg); }
+body.u-light #uniTheme {
+  background: rgba(0,0,0,0.08);
+  color: #202738;
+  border-color: rgba(0,0,0,0.15);
+}
+@media(max-width:480px){
+  #uniBar { top:10px; right:10px; gap:7px; }
+  #uniHome, #uniTheme { padding:9px 13px; font-size:12px; }
+}
+</style></head>
+
+`<body>
+<div id="uniBar"><a id="uniHome" href="./freetools.html">&#8592; Free Tools</a><button id="uniTheme" onclick="toggleUniTheme()">&#9728;&#65039; Light</button></div>
+
+
+<div class="container">
+
+<header>
+    <div class="logo">MS SHEET TOOLS</div>
+    
+
+</header>
+
+<section class="hero">
+    <h1>MS Sheet Calculator</h1>
+    <p>Standard Mild Steel Sheet Size & Weight Calculator</p>
+</section>
+
+<div class="layout">
+
+<section class="card">
+    <h2>⚙ Select Sheet Details</h2>
+
+    <label>Sheet Thickness (MM)</label>
+
+    <select id="thickness" onchange="calculate(); calculateCutArea()">
+        <option value="0.5">0.5 MM</option>
+        <option value="0.6">0.6 MM</option>
+        <option value="0.7">0.7 MM</option>
+        <option value="0.8">0.8 MM</option>
+        <option value="0.9">0.9 MM</option>
+        <option value="1">1.0 MM</option>
+        <option value="1.2">1.2 MM</option>
+        <option value="1.5" selected>1.5 MM</option>
+        <option value="1.6">1.6 MM</option>
+        <option value="2">2.0 MM</option>
+        <option value="2.5">2.5 MM</option>
+        <option value="3">3.0 MM</option>
+        <option value="4">4.0 MM</option>
+        <option value="5">5.0 MM</option>
+        <option value="6">6.0 MM</option>
+        <option value="8">8.0 MM</option>
+        <option value="10">10.0 MM</option>
+        <option value="12">12.0 MM</option>
+    </select>
+
+    <label>Sheet Size</label>
+
+<select id="sheetSize" onchange="toggleCustomSize(); calculate();">
+    <option value="4x8">4 × 8 Feet</option>
+    <option value="4x10">4 × 10 Feet</option>
+    <option value="5x10">5 × 10 Feet</option>
+    <option value="5x20">5 × 20 Feet</option>
+    <option value="custom">Custom Size</option>
+</select>
+
+<div id="customSizeBox" style="display:none;">
+
+    <label>Length</label>
+    <input type="number" id="customLength"
+    placeholder="Enter Length" min="0" step="any"
+    oninput="calculate()">
+
+    <label>Width</label>
+    <input type="number" id="customWidth"
+    placeholder="Enter Width" min="0" step="any"
+    oninput="calculate()">
+
+    <label>Measurement Unit</label>
+    <select id="customUnit" onchange="calculate()">
+        <option value="ft">Feet</option>
+        <option value="in">Inches</option>
+        <option value="mm">MM</option>
+    </select>
+
+</div>
+
+
+    <label>Material</label>
+
+    <select id="material" onchange="calculate(); calculateCutArea()">
+        <option value="7850">Mild Steel (MS)</option>
+    </select>
+
+</section>
+
+<section class="card">
+
+    <h2>📊 Calculation Result</h2>
+
+    <div class="weight-box">
+        <small>ONE SHEET WEIGHT</small>
+        <div class="weight" id="weight">29.25 <span>KG</span></div>
+        <small>Estimated weight per sheet</small>
+    </div>
+
+    <div class="details">
+
+        <div class="detail">
+            <small>Thickness</small>
+            <strong id="rThickness">1.5 MM</strong>
+        </div>
+
+        <div class="detail">
+            <small>Sheet Size</small>
+            <strong id="rSize">4 × 8 FT</strong>
+        </div>
+
+        <div class="detail">
+            <small>Length</small>
+            <strong id="rLength">8 FT</strong>
+        </div>
+
+        <div class="detail">
+            <small>Width</small>
+            <strong id="rWidth">4 FT</strong>
+        </div>
+
+    </div>
+
+    <p class="note">
+        Weight is calculated using standard MS density
+        of 7850 KG/m³. Actual market weight may vary
+        due to manufacturing tolerances.
+    </p>
+
+</section>
+
+</div>
+<!-- CUT PIECE AREA CALCULATOR -->
+
+<div class="cut-piece-box">
+
+    <h2>✂ CUT PIECE AREA CALCULATOR</h2>
+
+    <label>Length</label>
+    <div class="cut-input-group">
+        <input type="number" id="cutLength"
+       placeholder="Enter length" min="0" step="any"
+       oninput="calculateCutArea()">
+
+        <select id="cutLengthUnit" onchange="calculateCutArea()">
+            <option value="ft">Feet</option>
+            <option value="in">Inches</option>
+            <option value="mm">MM</option>
+        </select>
+    </div>
+
+    <label>Width</label>
+    <div class="cut-input-group">
+        <input type="number" id="cutWidth"
+       placeholder="Enter width" min="0" step="any"
+       oninput="calculateCutArea()">
+
+        <select id="cutWidthUnit" onchange="calculateCutArea()">
+            <option value="ft">Feet</option>
+            <option value="in">Inches</option>
+            <option value="mm">MM</option>
+        </select>
+    </div>
+
+    <label>Quantity (Number of Pieces)</label>
+    <input type="number" id="cutQuantity"
+       class="cut-quantity"
+       value="1" min="1" step="1"
+       oninput="calculateCutArea()">
+
+    <button class="cut-calculate-btn"
+            onclick="calculateCutArea()">
+        CALCULATE AREA
+    </button>
+
+    <div class="cut-error" id="cutError"></div>
+
+    <div class="cut-result">
+
+        <div class="result-title">ONE PIECE AREA</div>
+
+        <div class="result-value" id="onePieceArea">
+            0.00 Sq. Ft.
+        </div>
+
+        <div class="small-result">
+            TOTAL PIECES:
+            <strong id="totalPieces">1</strong>
+        </div>
+
+        <div class="small-result">
+            TOTAL AREA:
+            <strong id="totalCutArea">0.00 Sq. Ft.</strong>
+        </div>
+<div class="small-result">
+    ONE PIECE WEIGHT:
+    <strong id="onePieceWeight">0.00 KG</strong>
+</div>
+
+<div class="small-result">
+    TOTAL WEIGHT:
+    <strong id="totalCutWeight">0.00 KG</strong>
+</div>
+    </div>
+
+</div>
+<footer>
+    <div class="owner">
+        Owner: Shaiekh Fielsouf Ansari
+    </div>
+
+    <div class="contacts">
+        <a href="tel:03331255512">☎ 03331255512</a>
+        <a href="tel:03111855512">☎ 03111855512</a>
+    </div>
+</footer>
+
+</div>
+
+<script>
+
+function toggleCustomSize() {
+    const isCustom =
+        document.getElementById("sheetSize").value === "custom";
+
+    document.getElementById("customSizeBox").style.display =
+        isCustom ? "block" : "none";
+}
+
+function calculate() {
+
+    const thickness = Number(document.getElementById("thickness").value);
+    const density = Number(document.getElementById("material").value);
+    const selectedSize = document.getElementById("sheetSize").value;
+
+    let width, length, widthLabel, lengthLabel, sizeLabel;
+
+    if (selectedSize === "custom") {
+
+        const l = Number(document.getElementById("customLength").value);
+        const w = Number(document.getElementById("customWidth").value);
+        const unit = document.getElementById("customUnit").value;
+
+        if (!Number.isFinite(l) || !Number.isFinite(w) || l <= 0 || w <= 0) {
+
+    document.getElementById("weight").innerHTML = "— <span>KG</span>";
+
+    document.getElementById("rThickness").innerText = thickness + " MM";
+    document.getElementById("rSize").innerText = "Custom";
+    document.getElementById("rLength").innerText = "—";
+    document.getElementById("rWidth").innerText = "—";
+
+    return;
+}
+
+        const factor = unit === "ft" ? 0.3048 :
+                       unit === "in" ? 0.0254 : 0.001;
+
+        length = l * factor;
+        width = w * factor;
+
+        lengthLabel = l + " " + unit;
+        widthLabel = w + " " + unit;
+        sizeLabel = "Custom";
+
+    } else {
+
+        const sizes = {
+            "4x8": {width:4, length:8},
+            "4x10": {width:4, length:10},
+            "5x10": {width:5, length:10},
+            "5x20": {width:5, length:20}
+        };
+
+        const s = sizes[selectedSize];
+
+        width = s.width * 0.3048;
+        length = s.length * 0.3048;
+
+        widthLabel = s.width + " FT";
+        lengthLabel = s.length + " FT";
+        sizeLabel = s.width + " × " + s.length + " FT";
+    }
+
+    const weight = length * width * (thickness / 1000) * density;
+
+    document.getElementById("weight").innerHTML =
+        weight.toFixed(2) + " <span>KG</span>";
+
+    document.getElementById("rThickness").innerText = thickness + " MM";
+    document.getElementById("rSize").innerText = sizeLabel;
+    document.getElementById("rLength").innerText = lengthLabel;
+    document.getElementById("rWidth").innerText = widthLabel;
+}
+// CUT PIECE AREA CALCULATION
+
+function calculateCutArea() {
+
+    const length = parseFloat(
+        document.getElementById("cutLength").value
+    );
+
+    const width = parseFloat(
+        document.getElementById("cutWidth").value
+    );
+
+    const quantity = Number(
+        document.getElementById("cutQuantity").value
+    );
+
+    const lengthUnit =
+        document.getElementById("cutLengthUnit").value;
+
+    const widthUnit =
+        document.getElementById("cutWidthUnit").value;
+
+    const error = document.getElementById("cutError");
+
+    // Reset previous results
+
+    error.textContent = "";
+
+    document.getElementById("onePieceArea").textContent =
+        "0.00 Sq. Ft.";
+
+    document.getElementById("totalPieces").textContent = "0";
+
+    document.getElementById("totalCutArea").textContent =
+        "0.00 Sq. Ft.";
+
+    document.getElementById("onePieceWeight").textContent =
+        "0.00 KG";
+
+    document.getElementById("totalCutWeight").textContent =
+        "0.00 KG";
+
+    // Validate inputs
+
+    if (!Number.isFinite(length) || length <= 0 ||
+        !Number.isFinite(width) || width <= 0 ||
+        !Number.isInteger(quantity) || quantity <= 0) {
+
+        error.textContent =
+            "Please enter valid length, width and quantity.";
+
+        return;
+    }
+
+    // Convert measurements into feet
+
+    function convertToFeet(value, unit) {
+
+        if (unit === "ft") return value;
+        if (unit === "in") return value / 12;
+        if (unit === "mm") return value / 304.8;
+
+        return 0;
+    }
+
+    const lengthFeet = convertToFeet(length, lengthUnit);
+    const widthFeet = convertToFeet(width, widthUnit);
+
+    // Calculate area
+
+    const onePiece = lengthFeet * widthFeet;
+    const totalArea = onePiece * quantity;
+
+    // Calculate weight using selected thickness
+
+    const thickness = Number(
+        document.getElementById("thickness").value
+    );
+
+    const density = Number(
+        document.getElementById("material").value
+    );
+
+    const onePieceWeight =
+        onePiece * 0.09290304 * (thickness / 1000) * density;
+
+    const totalWeight = onePieceWeight * quantity;
+
+    // Display results
+
+    document.getElementById("onePieceArea").textContent =
+        onePiece.toFixed(2) + " Sq. Ft.";
+
+    document.getElementById("totalPieces").textContent =
+        quantity;
+
+    document.getElementById("totalCutArea").textContent =
+        totalArea.toFixed(2) + " Sq. Ft.";
+
+    document.getElementById("onePieceWeight").textContent =
+        onePieceWeight.toFixed(2) + " KG";
+
+    document.getElementById("totalCutWeight").textContent =
+        totalWeight.toFixed(2) + " KG";
+}
+
+// Disable right click
+document.addEventListener("contextmenu", function(e) {
+    e.preventDefault();
+});
+
+// Disable text selection
+document.addEventListener("selectstart", function(e) {
+    e.preventDefault();
+});
+
+// Disable copy and cut
+document.addEventListener("copy", function(e) {
+    e.preventDefault();
+});
+
+document.addEventListener("cut", function(e) {
+    e.preventDefault();
+});
+
+// Disable dragging
+document.addEventListener("dragstart", function(e) {
+    e.preventDefault();
+});
+
+calculate();
+calculateCutArea();
+
+</script>
+
+
+<script id="uniBarScript">
+function toggleUniTheme(){
+  var l=document.body.classList.toggle('u-light');
+  document.getElementById('uniTheme').innerHTML=l?'&#127769; Dark':'&#9728;&#65039; Light';
+  localStorage.setItem('uniTheme',l?'light':'dark');
+}
+(function(){
+  if(localStorage.getItem('uniTheme')==='light'){
+    document.body.classList.add('u-light');
+    var b=document.getElementById('uniTheme');
+    if(b)b.innerHTML='&#127769; Dark';
+  }
+})();
+</script>
+</body>
+</html>

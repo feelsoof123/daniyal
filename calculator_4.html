@@ -1,0 +1,644 @@
+﻿<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="./favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+  <link rel="manifest" href="manifest.json">
+<title>BuildCalc PK | Construction Calculator</title>
+<style>
+:root {
+  --bg:#0b1220; --card:#172337; --text:#f5f7fb;
+  --muted:#aab7ca; --accent:#e9b85b; --border:#304057;
+  --input:#101a2b;
+}
+
+* { box-sizing:border-box; }
+body {
+  margin:0; background:var(--bg); color:var(--text);
+  font-family:Arial,sans-serif; line-height:1.6;
+}
+header {
+  background:var(--card); border-bottom:1px solid var(--border);
+  padding:15px 5%;
+}
+nav {
+  max-width:1100px; margin:auto; display:flex;
+  justify-content:space-between; align-items:center;
+  flex-wrap:wrap; gap:12px;
+  padding-right: 200px;
+}
+.brand { font-size:22px; font-weight:bold; }
+.logo { color:var(--accent); }
+button,select,input {
+  font:inherit; border-radius:8px; padding:10px;
+}
+button {
+  cursor:pointer; border:1px solid var(--border);
+  background:var(--card); color:var(--text);
+}
+select,input {
+  width:100%; border:1px solid var(--border);
+  background:var(--input); color:var(--text);
+}
+.nav-buttons { display:flex; gap:8px; align-items:center; }
+main { max-width:1100px; margin:auto; padding:22px 16px; }
+.hero {
+  padding:28px; border:1px solid var(--border);
+  background:var(--card); border-radius:18px; margin-bottom:24px;
+}
+h1 { font-size:clamp(26px,5vw,40px); line-height:1.2; }
+h2 { font-size:23px; }
+h3 { margin:0 0 8px; }
+p { color:var(--muted); }
+.accent { color:var(--accent); }
+.grid {
+  display:grid; grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:16px;
+}
+.card {
+  min-width:0; background:var(--card); border:1px solid var(--border);
+  border-radius:15px; padding:20px;
+}
+.fields {
+  display:grid; grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+}
+label { display:block; font-size:14px; margin-bottom:5px; }
+.field { min-width:0; }
+.full { grid-column:1/-1; }
+.primary {
+  background:var(--accent); color:#201808; font-weight:bold;
+  border:0; margin-top:12px;
+}
+.result {
+  margin-top:15px; padding:14px; border-radius:10px;
+  background:var(--bg); border:1px solid var(--border);
+  overflow-wrap:anywhere;
+}
+.result strong { color:var(--accent); font-size:22px; }
+.small { color:var(--muted); font-size:13px; }
+.owner {
+  text-align:center; padding:25px 15px;
+  background:var(--card); border-top:1px solid var(--border);
+  margin-top:25px;
+}
+.owner a { color:var(--accent); text-decoration:none; }
+.owner p { margin:6px; }
+@media(max-width:650px) {
+  .grid { grid-template-columns:1fr; }
+  .hero { padding:20px; }
+  .card { padding:15px; }
+  header { padding:12px; }
+}
+@media(max-width:360px) {
+  .fields { grid-template-columns:1fr; }
+  .full { grid-column:auto; }
+}
+body,header,main,.card,.hero,footer {
+  user-select:none; -webkit-user-select:none;
+}
+input,select,textarea {
+  user-select:auto; -webkit-user-select:auto;
+}
+</style>
+
+<style id="uniBarStyle">
+/* ===== UNIFIED NAV BAR ===== */
+#uniBar {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+#uniHome, #uniTheme {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 11px 19px;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform .25s, box-shadow .25s;
+  text-decoration: none;
+  font-family: inherit;
+  letter-spacing: .01em;
+  white-space: nowrap;
+  user-select: none;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.45);
+}
+#uniHome {
+  background: linear-gradient(135deg,#f1d79d,#d9b56d);
+  color: #17130b;
+  border: 0;
+}
+#uniTheme {
+  background: rgba(255,255,255,0.10);
+  color: #f4f1e9;
+  border: 1px solid rgba(255,255,255,0.18);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+#uniHome:hover, #uniTheme:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.5);
+}
+/* Light Mode */
+body.u-light { filter: invert(1) hue-rotate(180deg); }
+body.u-light img,
+body.u-light video,
+body.u-light canvas { filter: invert(1) hue-rotate(180deg); }
+body.u-light #uniTheme {
+  background: rgba(0,0,0,0.08);
+  color: #202738;
+  border-color: rgba(0,0,0,0.15);
+}
+@media(max-width:480px){
+  #uniBar { top:10px; right:10px; gap:7px; }
+  #uniHome, #uniTheme { padding:9px 13px; font-size:12px; }
+}
+</style></head>
+`<body>
+<div id="uniBar"><a id="uniHome" href="./freetools.html">&#8592; Free Tools</a><button id="uniTheme" onclick="toggleUniTheme()">&#9728;&#65039; Light</button></div>
+
+<header>
+<nav>
+  <div class="brand">🏠 BuildCalc <span class="logo">PK</span></div>
+  <div class="nav-buttons">
+    <select id="language" style="width:auto">
+      <option value="en">English</option>
+      <option value="ur">اردو</option>
+    </select>
+    
+  </div>
+</nav>
+</header>
+
+<main>
+<section class="hero">
+  <p class="accent" data-en="CONSTRUCTION CALCULATORS"
+     data-ur="تعمیراتی کیلکولیٹر">CONSTRUCTION CALCULATORS</p>
+  <h1 data-en="Build Smarter. Save Money."
+      data-ur="سمجھ داری سے تعمیر کریں، پیسے بچائیں۔">
+    Build Smarter. Save Money.
+  </h1>
+  <p data-en="Calculate construction materials, labour and project costs in Pakistan."
+     data-ur="پاکستان میں تعمیراتی میٹریل، مزدوری اور اخراجات کا حساب لگائیں۔">
+    Calculate construction materials, labour and project costs in Pakistan.
+  </p>
+</section>
+
+<h2 data-en="Construction Tools" data-ur="تعمیراتی ٹولز">
+Construction Tools
+</h2>
+
+<div class="grid">
+
+<!-- 1. HOUSE CONSTRUCTION COST -->
+<section class="card">
+<h3 data-en="🏠 House Construction Cost"
+data-ur="🏠 گھر کی تعمیر کا خرچ">🏠 House Construction Cost</h3>
+<div class="fields">
+<div class="field">
+<label data-en="Covered area (sq ft)" data-ur="تعمیر شدہ رقبہ (مربع فٹ)">Covered area (sq ft)</label>
+<input id="area" type="number" min="0" value="1000">
+</div>
+<div class="field">
+<label data-en="Rate per sq ft (PKR)" data-ur="فی مربع فٹ ریٹ (روپے)">Rate per sq ft (PKR)</label>
+<input id="costRate" type="number" min="0" value="3000">
+</div>
+<div class="field full">
+<label data-en="Extra expenses (%)" data-ur="اضافی اخراجات (%)">Extra expenses (%)</label>
+<input id="extra" type="number" min="0" value="10">
+</div>
+</div>
+<button class="primary" onclick="calculateCost()"
+data-en="Calculate Cost" data-ur="خرچ معلوم کریں">Calculate Cost</button>
+<div class="result" id="costResult" aria-live="polite">PKR 3,300,000</div>
+</section>
+
+<!-- 2. BRICKS AND CEMENT -->
+<section class="card">
+<h3 data-en="🧱 Bricks & Cement" data-ur="🧱 اینٹیں اور سیمنٹ">🧱 Bricks & Cement</h3>
+<div class="fields">
+<div class="field">
+<label data-en="Wall length (ft)" data-ur="دیوار کی لمبائی (فٹ)">Wall length (ft)</label>
+<input id="wallL" type="number" min="0" value="20">
+</div>
+<div class="field">
+<label data-en="Wall height (ft)" data-ur="دیوار کی اونچائی (فٹ)">Wall height (ft)</label>
+<input id="wallH" type="number" min="0" value="10">
+</div>
+<div class="field">
+<label data-en="Thickness (inches)" data-ur="موٹائی (انچ)">Thickness (inches)</label>
+<select id="wallT">
+<option value="4.5">4.5 inches</option>
+<option value="9" selected>9 inches</option>
+</select>
+</div>
+<div class="field">
+<label data-en="Bricks per cubic ft" data-ur="فی مکعب فٹ اینٹیں">Bricks per cubic ft</label>
+<input id="brickFactor" type="number" min="1" value="13.5">
+</div>
+<div class="field">
+<label data-en="Price per brick (PKR)" data-ur="فی اینٹ قیمت (روپے)">Price per brick (PKR)</label>
+<input id="brickPrice" type="number" min="0" value="18">
+</div>
+<div class="field">
+<label data-en="Cement bag price (PKR)" data-ur="سیمنٹ کی بوری (روپے)">Cement bag price (PKR)</label>
+<input id="cementPrice" type="number" min="0" value="1400">
+</div>
+</div>
+<button class="primary" onclick="calculateBricks()"
+data-en="Calculate Materials" data-ur="میٹریل کا حساب">Calculate Materials</button>
+<div class="result" id="brickResult" aria-live="polite">—</div>
+<p class="small" data-en="Approximate estimate only. Mortar, plaster and structural concrete are not fully included."
+data-ur="صرف تخمینہ ہے۔ پلستر، کنکریٹ اور تمام مسالے کی مقدار مکمل طور پر شامل نہیں۔">
+Approximate estimate only. Mortar, plaster and structural concrete are not fully included.
+</p>
+</section>
+
+<!-- 3. TILES -->
+<section class="card">
+<h3 data-en="◫ Tiles & Flooring" data-ur="◫ ٹائلز اور فرش">◫ Tiles & Flooring</h3>
+<div class="fields">
+<div class="field">
+<label data-en="Room length (ft)" data-ur="کمرے کی لمبائی (فٹ)">Room length (ft)</label>
+<input id="roomL" type="number" min="0" value="15">
+</div>
+<div class="field">
+<label data-en="Room width (ft)" data-ur="کمرے کی چوڑائی (فٹ)">Room width (ft)</label>
+<input id="roomW" type="number" min="0" value="12">
+</div>
+<div class="field">
+<label data-en="Tile length (in)" data-ur="ٹائل کی لمبائی (انچ)">Tile length (in)</label>
+<input id="tileL" type="number" min="0" value="24">
+</div>
+<div class="field">
+<label data-en="Tile width (in)" data-ur="ٹائل کی چوڑائی (انچ)">Tile width (in)</label>
+<input id="tileW" type="number" min="0" value="24">
+</div>
+<div class="field">
+<label data-en="Price per tile (PKR)" data-ur="فی ٹائل قیمت (روپے)">Price per tile (PKR)</label>
+<input id="tilePrice" type="number" min="0" value="800">
+</div>
+<div class="field">
+<label data-en="Wastage (%)" data-ur="اضافی ٹائلیں (%)">Wastage (%)</label>
+<input id="tileWaste" type="number" min="0" value="10">
+</div>
+</div>
+<button class="primary" onclick="calculateTiles()"
+data-en="Calculate Tiles" data-ur="ٹائلوں کا حساب">Calculate Tiles</button>
+<div class="result" id="tileResult" aria-live="polite">—</div>
+</section>
+
+<!-- 4. PAINT -->
+<section class="card">
+<h3 data-en="🎨 Paint Calculator" data-ur="🎨 پینٹ کیلکولیٹر">🎨 Paint Calculator</h3>
+<div class="fields">
+<div class="field">
+<label data-en="Room length (ft)" data-ur="کمرے کی لمبائی (فٹ)">Room length (ft)</label>
+<input id="paintL" type="number" min="0" value="15">
+</div>
+<div class="field">
+<label data-en="Room width (ft)" data-ur="کمرے کی چوڑائی (فٹ)">Room width (ft)</label>
+<input id="paintW" type="number" min="0" value="12">
+</div>
+<div class="field">
+<label data-en="Wall height (ft)" data-ur="دیوار کی اونچائی (فٹ)">Wall height (ft)</label>
+<input id="paintH" type="number" min="0" value="10">
+</div>
+<div class="field">
+<label data-en="Doors/windows area (sq ft)" data-ur="دروازوں اور کھڑکیوں کا رقبہ">Doors/windows area (sq ft)</label>
+<input id="paintOpen" type="number" min="0" value="40">
+</div>
+<div class="field">
+<label data-en="Number of coats" data-ur="پینٹ کے کوٹ">Number of coats</label>
+<input id="coats" type="number" min="1" value="2">
+</div>
+<div class="field">
+<label data-en="Coverage (sq ft per litre)" data-ur="فی لیٹر کوریج (مربع فٹ)">Coverage (sq ft per litre)</label>
+<input id="coverage" type="number" min="1" value="100">
+</div>
+<div class="field full">
+<label data-en="Paint price per litre (PKR)" data-ur="فی لیٹر پینٹ کی قیمت (روپے)">Paint price per litre (PKR)</label>
+<input id="paintPrice" type="number" min="0" value="1200">
+</div>
+</div>
+<button class="primary" onclick="calculatePaint()"
+data-en="Calculate Paint" data-ur="پینٹ کا حساب">Calculate Paint</button>
+<div class="result" id="paintResult" aria-live="polite">—</div>
+</section>
+
+<!-- 5. LABOUR -->
+<section class="card">
+<h3 data-en="👷 Labour Cost" data-ur="👷 مزدوری کا خرچ">👷 Labour Cost</h3>
+<div class="fields">
+<div class="field">
+<label data-en="Number of workers" data-ur="مزدوروں کی تعداد">Number of workers</label>
+<input id="workers" type="number" min="0" value="4">
+</div>
+<div class="field">
+<label data-en="Daily wage (PKR)" data-ur="روزانہ اجرت (روپے)">Daily wage (PKR)</label>
+<input id="wage" type="number" min="0" value="2000">
+</div>
+<div class="field">
+<label data-en="Working days" data-ur="کام کے دن">Working days</label>
+<input id="days" type="number" min="0" value="20">
+</div>
+<div class="field">
+<label data-en="Extra expenses (PKR)" data-ur="اضافی اخراجات (روپے)">Extra expenses (PKR)</label>
+<input id="labourExtra" type="number" min="0" value="5000">
+</div>
+</div>
+<button class="primary" onclick="calculateLabour()"
+data-en="Calculate Labour" data-ur="مزدوری معلوم کریں">Calculate Labour</button>
+<div class="result" id="labourResult" aria-live="polite">—</div>
+</section>
+
+<!-- 6. CONTRACTOR QUOTATION -->
+<section class="card">
+<h3 data-en="📋 Contractor Quote Checker" data-ur="📋 ٹھیکیدار کے کوٹیشن کا موازنہ">📋 Contractor Quote Checker</h3>
+<div class="fields">
+<div class="field">
+<label data-en="Material cost (PKR)" data-ur="میٹریل کی لاگت (روپے)">Material cost (PKR)</label>
+<input id="materials" type="number" min="0" value="500000">
+</div>
+<div class="field">
+<label data-en="Labour cost (PKR)" data-ur="مزدوری (روپے)">Labour cost (PKR)</label>
+<input id="quoteLabour" type="number" min="0" value="200000">
+</div>
+<div class="field">
+<label data-en="Other costs (PKR)" data-ur="دیگر اخراجات (روپے)">Other costs (PKR)</label>
+<input id="other" type="number" min="0" value="50000">
+</div>
+<div class="field">
+<label data-en="Contractor quote (PKR)" data-ur="ٹھیکیدار کی رقم (روپے)">Contractor quote (PKR)</label>
+<input id="quote" type="number" min="0" value="850000">
+</div>
+</div>
+<button class="primary" onclick="calculateQuote()"
+data-en="Compare Quote" data-ur="موازنہ کریں">Compare Quote</button>
+<div class="result" id="quoteResult" aria-live="polite">—</div>
+<p class="small" data-en="This compares your numbers only; it does not guarantee fair pricing or construction quality."
+data-ur="یہ صرف درج شدہ رقم کا موازنہ ہے؛ یہ مناسب قیمت یا تعمیر کے معیار کی ضمانت نہیں۔">
+This compares your numbers only; it does not guarantee fair pricing or construction quality.
+</p>
+</section>
+
+<!-- OWNER CONTACT -->
+<footer class="owner">
+  <h2 data-en="Website Owner" data-ur="ویب سائٹ کے مالک">
+    Website Owner
+  </h2>
+  <h3>Shaiekh Fielsouf Ansari</h3>
+  <p>
+    <span data-en="Contact Number 1:" data-ur="رابطہ نمبر 1:">Contact Number 1:</span>
+    <a href="tel:03000210419">03000210419</a>
+  </p>
+  <p>
+    <span data-en="Contact Number 2:" data-ur="رابطہ نمبر 2:">Contact Number 2:</span>
+    <a href="tel:03111855512">03111855512</a>
+  </p>
+  <p class="small">© <span id="year"></span> BuildCalc PK</p>
+</footer>
+
+<script>
+"use strict";
+
+const $ = id => document.getElementById(id);
+
+function val(id) {
+  const n = Number($(id).value);
+  return Number.isFinite(n) && n >= 0 ? n : NaN;
+}
+
+function money(n) {
+  return "PKR " + Math.round(n).toLocaleString("en-PK");
+}
+
+function show(id, text) {
+  $(id).textContent = text;
+}
+
+function validNumbers(ids) {
+  return ids.every(id => Number.isFinite(val(id)));
+}
+
+function errorResult(id) {
+  show(id, document.documentElement.lang === "ur"
+    ? "درست اور صفر یا اس سے بڑی مقدار درج کریں۔"
+    : "Please enter valid non-negative numbers.");
+}
+
+// 1. HOUSE CONSTRUCTION COST
+function calculateCost() {
+  const ids = ["area", "costRate", "extra"];
+  if (!validNumbers(ids)) return errorResult("costResult");
+
+  const base = val("area") * val("costRate");
+  const extra = base * val("extra") / 100;
+  show("costResult",
+    "Base: " + money(base) +
+    "\nExtra: " + money(extra) +
+    "\nTotal: " + money(base + extra));
+}
+
+// 2. BRICKS AND CEMENT
+function calculateBricks() {
+  const ids = [
+    "wallL", "wallH", "brickFactor",
+    "brickPrice", "cementPrice"
+  ];
+  if (!validNumbers(ids) ||
+      val("wallL") <= 0 ||
+      val("wallH") <= 0 ||
+      val("brickFactor") <= 0) {
+    return errorResult("brickResult");
+  }
+
+  const volume =
+    val("wallL") * val("wallH") *
+    (Number($("wallT").value) / 12);
+
+  const bricks = Math.ceil(volume * val("brickFactor"));
+
+  // Rough allowance: wet mortar = 25% of wall volume.
+  // Dry-volume factor = 1.33; one cement bag ≈ 1.25 ft³.
+  const mortarDry = volume * 0.25 * 1.33;
+  const cementBags =
+    mortarDry / (1 + 5) / 1.25;
+
+  const brickCost = bricks * val("brickPrice");
+  const cementCost = cementBags * val("cementPrice");
+
+  show("brickResult",
+    "Wall volume: " + volume.toFixed(2) + " ft³" +
+    "\nBricks: " + bricks.toLocaleString("en-PK") +
+    "\nApprox. cement bags: " + cementBags.toFixed(2) +
+    "\nBrick cost: " + money(brickCost) +
+    "\nCement cost: " + money(cementCost) +
+    "\nPartial total: " + money(brickCost + cementCost));
+}
+
+// 3. TILES
+function calculateTiles() {
+  const ids = [
+    "roomL", "roomW", "tileL", "tileW",
+    "tilePrice", "tileWaste"
+  ];
+  if (!validNumbers(ids) ||
+      val("tileL") <= 0 || val("tileW") <= 0) {
+    return errorResult("tileResult");
+  }
+
+  const area = val("roomL") * val("roomW");
+  const tileArea = val("tileL") * val("tileW") / 144;
+  const count = Math.ceil(
+    area / tileArea * (1 + val("tileWaste") / 100)
+  );
+
+  show("tileResult",
+    "Floor area: " + area.toFixed(2) + " sq ft" +
+    "\nTiles required: " + count.toLocaleString("en-PK") +
+    "\nEstimated tile cost: " + money(count * val("tilePrice")));
+}
+
+// 4. PAINT
+function calculatePaint() {
+  const ids = [
+    "paintL", "paintW", "paintH", "paintOpen",
+    "coats", "coverage", "paintPrice"
+  ];
+  if (!validNumbers(ids) ||
+      val("coverage") <= 0 || val("coats") <= 0) {
+    return errorResult("paintResult");
+  }
+
+  const gross = 2 * (val("paintL") + val("paintW")) * val("paintH");
+  const area = Math.max(0, gross - val("paintOpen"));
+  const litres = area * val("coats") / val("coverage");
+  const purchase = Math.ceil(litres);
+
+  show("paintResult",
+    "Paintable wall area: " + area.toFixed(2) + " sq ft" +
+    "\nPaint required: " + litres.toFixed(2) + " litres" +
+    "\nRounded purchase: " + purchase + " litres" +
+    "\nEstimated cost: " + money(purchase * val("paintPrice")));
+}
+
+// 5. LABOUR
+function calculateLabour() {
+  const ids = ["workers", "wage", "days", "labourExtra"];
+  if (!validNumbers(ids)) return errorResult("labourResult");
+
+  const wages = val("workers") * val("wage") * val("days");
+  show("labourResult",
+    "Wages: " + money(wages) +
+    "\nExtra expenses: " + money(val("labourExtra")) +
+    "\nTotal: " + money(wages + val("labourExtra")));
+}
+
+// 6. CONTRACTOR QUOTATION
+function calculateQuote() {
+  const ids = ["materials", "quoteLabour", "other", "quote"];
+  if (!validNumbers(ids)) return errorResult("quoteResult");
+
+  const estimate = val("materials") + val("quoteLabour") + val("other");
+  const quote = val("quote");
+  const difference = quote - estimate;
+
+  let comparison;
+  if (difference > 0) {
+    comparison = "Quote is " + money(difference) + " above estimate.";
+  } else if (difference < 0) {
+    comparison = "Quote is " + money(-difference) + " below estimate.";
+  } else {
+    comparison = "Quote matches the estimate.";
+  }
+
+  show("quoteResult",
+    "Estimated cost: " + money(estimate) +
+    "\nContractor quote: " + money(quote) +
+    "\n" + comparison);
+}
+
+// LANGUAGE SWITCH
+function setLanguage(language) {
+  document.documentElement.lang = language;
+  document.documentElement.dir = language === "ur" ? "rtl" : "ltr";
+
+  document.querySelectorAll("[data-en][data-ur]").forEach(el => {
+    el.textContent = el.dataset[language];
+  });
+
+  $("language").value = language;
+}
+
+$("language").addEventListener("change", function () {
+  setLanguage(this.value);
+});
+
+
+
+// Update calculations when inputs change
+const calculatorInputs = [
+  ["area", "costRate", "extra", calculateCost],
+  ["wallL", "wallH", "wallT", "brickFactor", "brickPrice", "cementPrice", calculateBricks],
+  ["roomL", "roomW", "tileL", "tileW", "tilePrice", "tileWaste", calculateTiles],
+  ["paintL", "paintW", "paintH", "paintOpen", "coats", "coverage", "paintPrice", calculatePaint],
+  ["workers", "wage", "days", "labourExtra", calculateLabour],
+  ["materials", "quoteLabour", "other", "quote", calculateQuote]
+];
+
+calculatorInputs.forEach(group => {
+  const fn = group[group.length - 1];
+  group.slice(0, -1).forEach(id => {
+    $(id).addEventListener("input", fn);
+    $(id).addEventListener("change", fn);
+  });
+});
+
+// Disable right-click on ordinary page content.
+// Keep form fields usable.
+document.addEventListener("contextmenu", function (e) {
+  if (!e.target.closest("input, select, textarea, button, a")) {
+    e.preventDefault();
+  }
+});
+
+$("year").textContent = new Date().getFullYear();
+
+// Set initial language and calculate all results.
+setLanguage("en");
+calculateCost();
+calculateBricks();
+calculateTiles();
+calculatePaint();
+calculateLabour();
+calculateQuote();
+</script>
+</main>
+<script id="uniBarScript">
+function toggleUniTheme(){
+  var l=document.body.classList.toggle('u-light');
+  document.getElementById('uniTheme').innerHTML=l?'&#127769; Dark':'&#9728;&#65039; Light';
+  localStorage.setItem('uniTheme',l?'light':'dark');
+}
+(function(){
+  if(localStorage.getItem('uniTheme')==='light'){
+    document.body.classList.add('u-light');
+    var b=document.getElementById('uniTheme');
+    if(b)b.innerHTML='&#127769; Dark';
+  }
+})();
+</script>
+</body>
+</html>
+

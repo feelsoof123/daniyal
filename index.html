@@ -1,0 +1,626 @@
+<!doctype html>
+<html lang="en">
+<head>
+<link rel="icon" href="./favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+  <link rel="manifest" href="manifest.json">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#090d18">
+  <meta name="description" content="Sheikh Daniyal Ansari — custom, responsive HTML websites for businesses, professionals and personal brands.">
+  <title>Sheikh Daniyal Ansari | Custom Website Development</title>
+  <style>
+    :root{
+      --bg:#090d18;--bg2:#0d1423;--panel:rgba(255,255,255,.055);
+      --line:rgba(255,255,255,.12);--gold:#d9b56d;--gold2:#f1d79d;
+      --text:#f4f1e9;--muted:#a8afbd;--max:1160px;--radius:22px;
+      --shadow:0 24px 70px rgba(0,0,0,.32)
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth;scroll-padding-top:90px}
+    body{margin:0;background:radial-gradient(ellipse at 80% 0%,rgba(217,181,109,.12),transparent 32%),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.65;overflow-x:hidden}
+    a{color:inherit;text-decoration:none}
+    button,input,textarea{font:inherit}
+    button,a{-webkit-tap-highlight-color:transparent}
+    .container{width:min(var(--max),calc(100% - 44px));margin-inline:auto}
+    .gold{color:var(--gold2)}
+    .eyebrow{display:inline-flex;align-items:center;gap:10px;color:var(--gold2);font-size:.76rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase}
+    .eyebrow:before{content:"";width:26px;height:1px;background:var(--gold)}
+    .section{padding:108px 0}
+    .section-head{max-width:690px;margin-bottom:44px}
+    h1,h2,h3,p{margin-top:0}
+    h1,h2,h3{line-height:1.12;letter-spacing:-.035em}
+    h1{font-size:clamp(3rem,7vw,6.1rem);margin:22px 0}
+    h2{font-size:clamp(2.2rem,4.5vw,3.8rem);margin:15px 0}
+    h3{font-size:1.28rem}
+    .lead{color:var(--muted);font-size:clamp(1rem,1.7vw,1.18rem);max-width:640px}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:50px;padding:0 22px;border-radius:999px;border:1px solid transparent;font-weight:800;transition:transform .25s,background .25s,border-color .25s;cursor:pointer}
+    .btn:hover{transform:translateY(-3px)}
+    .btn-primary{background:linear-gradient(135deg,var(--gold2),var(--gold));color:#17130b;box-shadow:0 12px 34px rgba(217,181,109,.2)}
+    .btn-outline{border-color:var(--line);background:rgba(255,255,255,.035);color:var(--text)}
+    .btn-outline:hover{border-color:var(--gold)}
+    .site-header{position:sticky;top:0;z-index:50;background:rgba(9,13,24,.78);backdrop-filter:blur(18px);border-bottom:1px solid rgba(255,255,255,.07)}
+    .nav{height:82px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:850;letter-spacing:.02em}
+    .brand-mark{width:43px;height:43px;border:1px solid rgba(217,181,109,.65);border-radius:13px;display:grid;place-items:center;color:var(--gold2);font-family:Georgia,serif;font-size:1.15rem;background:linear-gradient(145deg,rgba(217,181,109,.16),rgba(255,255,255,.02));box-shadow:inset 0 0 18px rgba(217,181,109,.08)}
+    .brand small{display:block;color:var(--muted);font-size:.62rem;letter-spacing:.19em;text-transform:uppercase;font-weight:700}
+    .nav-links{display:flex;align-items:center;gap:28px;color:#c4c9d2;font-size:.91rem}
+    .nav-links a{transition:color .2s}.nav-links a:hover{color:var(--gold2)}
+    .nav-cta{padding:11px 18px;min-height:42px;font-size:.86rem}
+    .menu-toggle{display:none;background:none;border:1px solid var(--line);color:var(--text);border-radius:12px;width:44px;height:44px;font-size:1.35rem}
+    .hero{position:relative;padding:100px 0 92px;min-height:680px;display:flex;align-items:center;overflow:hidden}
+    .hero:before{content:"";position:absolute;width:520px;height:520px;border-radius:50%;right:-100px;top:30px;background:radial-gradient(circle,rgba(217,181,109,.15),transparent 68%);pointer-events:none}
+    .hero-grid{display:grid;grid-template-columns:1.18fr .82fr;gap:50px;align-items:center;position:relative}
+    .hero-copy h1 span{display:block;color:var(--gold2)}
+    .hero-actions{display:flex;flex-wrap:wrap;gap:13px;margin:30px 0 35px}
+    .trust-row{display:flex;gap:22px;flex-wrap:wrap;color:var(--muted);font-size:.85rem}
+    .trust-row span{display:flex;align-items:center;gap:8px}.check{color:var(--gold2);font-weight:900}
+    .hero-art{min-height:430px;position:relative;display:grid;place-items:center}
+    .orbit{position:absolute;width:min(100%,420px);aspect-ratio:1;border:1px solid rgba(217,181,109,.23);border-radius:50%;transform:rotate(-18deg)}
+    .orbit:before,.orbit:after{content:"";position:absolute;border:1px solid rgba(255,255,255,.08);border-radius:50%;inset:32px}
+    .orbit:after{inset:72px}
+    .showcase{position:relative;width:min(100%,370px);padding:27px;border-radius:25px;border:1px solid rgba(217,181,109,.28);background:linear-gradient(145deg,rgba(26,35,54,.96),rgba(13,19,32,.94));box-shadow:var(--shadow);transform:rotate(2deg)}
+    .showcase-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:30px;color:var(--muted);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase}
+    .showcase-logo{width:48px;height:48px;border-radius:14px;background:linear-gradient(135deg,var(--gold2),#9e793d);display:grid;place-items:center;color:#17130b;font-family:Georgia,serif;font-size:1.4rem;font-weight:900}
+    .browser-dots{display:flex;gap:5px}.browser-dots i{width:6px;height:6px;border-radius:50%;background:#687184}
+    .showcase h3{font-size:2rem;margin-bottom:8px}.showcase p{color:var(--muted);font-size:.88rem}
+    .mock-line{height:8px;border-radius:9px;background:rgba(255,255,255,.1);margin:11px 0}.mock-line.short{width:58%}
+    .mock-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:25px}
+    .mock-cards span{height:68px;border:1px solid rgba(217,181,109,.18);border-radius:10px;background:linear-gradient(145deg,rgba(217,181,109,.12),rgba(255,255,255,.025))}
+    .floating-tag{position:absolute;padding:12px 16px;border-radius:14px;border:1px solid var(--line);background:rgba(17,25,40,.92);box-shadow:var(--shadow);font-size:.78rem;color:var(--gold2)}
+    .tag-one{top:54px;right:-2px}.tag-two{bottom:42px;left:-5px}
+    .stats{border-block:1px solid var(--line);background:rgba(255,255,255,.018)}
+    .stats-grid{display:grid;grid-template-columns:repeat(3,1fr);padding:25px 0}
+    .stat{text-align:center;padding:10px 18px;border-right:1px solid var(--line)}.stat:last-child{border:0}
+    .stat strong{display:block;color:var(--gold2);font-size:1.1rem}.stat span{font-size:.82rem;color:var(--muted)}
+    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .card{padding:28px;border:1px solid var(--line);border-radius:var(--radius);background:linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.018));transition:transform .25s,border-color .25s}
+    .card:hover{transform:translateY(-6px);border-color:rgba(217,181,109,.5)}
+    .icon-box{width:48px;height:48px;display:grid;place-items:center;border-radius:15px;color:var(--gold2);background:rgba(217,181,109,.1);border:1px solid rgba(217,181,109,.18);font-size:1.25rem;margin-bottom:22px}
+    .card p{color:var(--muted);font-size:.94rem;margin-bottom:0}
+    /* Free tools section */
+    .tools-section{background:linear-gradient(180deg,rgba(217,181,109,.035),transparent 75%);border-block:1px solid rgba(255,255,255,.045)}
+    .tool-card{position:relative;min-height:245px;display:flex;flex-direction:column;align-items:flex-start}
+    .tool-card .tool-status{display:inline-flex;align-items:center;gap:7px;margin-top:auto;padding-top:22px;color:var(--gold2);font-size:.76rem;font-weight:800;letter-spacing:.04em}
+    .tool-status:before{content:"";width:7px;height:7px;border-radius:50%;background:var(--gold)}
+    .tools-note{margin-top:26px;color:var(--muted);font-size:.88rem}
+    .about-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:65px;align-items:center}
+    .about-visual{min-height:390px;border-radius:28px;border:1px solid rgba(217,181,109,.25);background:radial-gradient(circle at 50% 38%,rgba(217,181,109,.17),transparent 45%),linear-gradient(145deg,#172238,#0e1422);display:grid;place-items:center;position:relative;overflow:hidden}
+    .monogram{font-family:Georgia,serif;font-size:clamp(7rem,18vw,12rem);line-height:1;color:transparent;-webkit-text-stroke:1px rgba(241,215,157,.72);letter-spacing:-.12em;padding-right:.12em}
+    .visual-caption{position:absolute;bottom:24px;left:24px;color:var(--muted);font-size:.75rem;letter-spacing:.16em;text-transform:uppercase}
+    .feature-list{display:grid;gap:15px;margin:28px 0 0;padding:0;list-style:none}
+    .feature-list li{display:flex;gap:13px;color:#d9dce2}.feature-list b{color:var(--gold2)}
+    .process{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;counter-reset:step}
+    .step{padding:23px;border-top:1px solid rgba(217,181,109,.45);background:linear-gradient(180deg,rgba(217,181,109,.06),transparent);counter-increment:step}
+    .step:before{content:"0" counter(step);display:block;color:var(--gold);font-size:.78rem;letter-spacing:.12em;margin-bottom:24px}
+    .step p{color:var(--muted);font-size:.9rem;margin:0}
+    .cta-band{padding:55px;border:1px solid rgba(217,181,109,.28);border-radius:28px;background:radial-gradient(ellipse at 90% 10%,rgba(217,181,109,.16),transparent 45%),linear-gradient(120deg,#151f32,#101827);display:flex;align-items:center;justify-content:space-between;gap:25px}
+    .cta-band h2{font-size:clamp(1.9rem,4vw,3rem);max-width:650px;margin-bottom:10px}.cta-band p{color:var(--muted);margin:0}
+    .contact-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:40px}
+    .contact-info{display:grid;gap:14px;margin-top:26px}
+    .contact-item{padding:17px 19px;border:1px solid var(--line);border-radius:16px;background:var(--panel)}
+    .contact-item small{display:block;color:var(--muted);margin-bottom:4px}.contact-item strong{color:var(--gold2);font-size:1.02rem}
+    .form-card{padding:30px;border:1px solid var(--line);border-radius:24px;background:rgba(255,255,255,.035)}
+    .field{margin-bottom:16px}.field label{display:block;color:#d9dce2;font-size:.86rem;margin-bottom:7px}
+    .field input,.field textarea{width:100%;border:1px solid rgba(255,255,255,.14);border-radius:12px;background:#0b1220;color:var(--text);padding:13px 14px;outline:none;transition:border-color .2s}
+    .field input:focus,.field textarea:focus{border-color:var(--gold)}.field textarea{min-height:125px;resize:vertical}
+    .form-note{font-size:.78rem;color:var(--muted);margin:12px 0 0}
+    footer{padding:30px 0;border-top:1px solid var(--line);color:var(--muted);font-size:.84rem}
+    .footer-row{display:flex;justify-content:space-between;gap:18px;align-items:center;flex-wrap:wrap}
+    .footer-links{display:flex;gap:18px}.footer-links a:hover{color:var(--gold2)}
+    .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}.reveal.visible{opacity:1;transform:none}
+    .wa-float{position:fixed;right:22px;bottom:22px;z-index:40;width:58px;height:58px;border-radius:50%;display:grid;place-items:center;background:#20bd68;color:#06160d;font-size:1.55rem;box-shadow:0 12px 30px rgba(0,0,0,.35);transition:transform .2s}
+    .wa-float:hover{transform:translateY(-4px) scale(1.04)}
+    :focus-visible{outline:2px solid var(--gold2);outline-offset:4px}
+
+    .header-actions{display:flex;align-items:center;gap:14px}
+    .language-switch{display:flex;align-items:center;gap:4px;padding:4px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.035)}
+    .lang-btn{border:0;border-radius:999px;background:transparent;color:var(--muted);padding:7px 11px;font:inherit;font-size:.76rem;font-weight:800;cursor:pointer}
+    .lang-btn.active{background:var(--gold);color:#17130b}
+    .rtl{direction:rtl;text-align:right}
+    .rtl body{font-family:"Noto Nastaliq Urdu","Noto Naskh Arabic","Jameel Noori Nastaleeq",Tahoma,serif}
+    body.rtl{font-family:"Noto Nastaliq Urdu","Noto Naskh Arabic","Jameel Noori Nastaleeq",Tahoma,serif}
+    body.rtl .nav,body.rtl .header-actions,body.rtl .hero-actions,body.rtl .trust-row,
+    body.rtl .footer-row,body.rtl .footer-links,body.rtl .contact-item{direction:rtl}
+    body.rtl .hero-grid,body.rtl .about-grid,body.rtl .contact-grid{direction:rtl}
+    body.rtl .eyebrow:before{margin-left:9px;margin-right:0}
+    body.rtl .stat{border-right:0;border-left:1px solid var(--line)}
+    body.rtl .stat:last-child{border-left:0}
+    body.rtl .feature-list li{direction:rtl}
+    body.rtl .cta-band{direction:rtl}
+    body.rtl .field input,body.rtl .field textarea{direction:rtl;text-align:right}
+    body.rtl .contact-item strong{direction:ltr;unicode-bidi:embed;display:block;text-align:right}
+    body.rtl .wa-float{right:auto;left:22px}
+    body.rtl .tag-one{right:auto;left:-2px}
+    body.rtl .tag-two{left:auto;right:-5px}
+    body.rtl .visual-caption{left:auto;right:24px}
+    body.rtl .nav-links{direction:rtl}
+    body.rtl .nav-cta span{display:inline-block;transform:scaleX(-1)}
+    @media(max-width:700px){
+      .header-actions{gap:8px}
+      .language-switch{margin-left:auto}
+      body.rtl .language-switch{margin-left:0;margin-right:auto}
+      body.rtl .nav-links{left:0;right:0}
+    }
+
+    @media(max-width:900px){
+      .hero-grid{grid-template-columns:1fr .8fr;gap:20px}.hero{min-height:600px}
+      .cards{grid-template-columns:repeat(2,1fr)}.about-grid{gap:35px}
+      .process{grid-template-columns:repeat(2,1fr)}.contact-grid{gap:24px}
+    }
+    @media(max-width:700px){
+      .container{width:min(var(--max),calc(100% - 32px))}.nav{height:72px}
+      .menu-toggle{display:grid;place-items:center}.nav-cta{display:none}
+      .nav-links{display:none;position:absolute;top:71px;left:0;right:0;padding:18px 22px 24px;background:#0c1321;border-bottom:1px solid var(--line);flex-direction:column;align-items:stretch;gap:0}
+      .nav-links.open{display:flex}.nav-links a{padding:13px 4px;border-bottom:1px solid rgba(255,255,255,.06)}
+      .hero{padding:76px 0 65px;min-height:auto}.hero-grid{grid-template-columns:1fr}
+      .hero-art{min-height:370px;margin-top:10px}.showcase{width:min(88%,370px)}.tag-one{right:0}.tag-two{left:0}
+      .stats-grid{grid-template-columns:1fr;gap:8px}.stat{border-right:0;border-bottom:1px solid var(--line);padding:13px}.stat:last-child{border:0}
+      .section{padding:76px 0}.cards{grid-template-columns:1fr}.about-grid{grid-template-columns:1fr}
+      .about-visual{min-height:290px}.process{grid-template-columns:1fr 1fr}
+      .cta-band{padding:32px 24px;align-items:flex-start;flex-direction:column}
+      .contact-grid{grid-template-columns:1fr}.form-card{padding:22px}
+    }
+    @media(max-width:390px){.process{grid-template-columns:1fr}.hero-actions .btn{width:100%}.brand{font-size:.9rem}}
+    @media(orientation:landscape) and (max-height:500px) and (max-width:900px){.hero{padding:48px 0}.hero-art{min-height:300px}.hero-grid{grid-template-columns:1fr 1fr}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}.reveal{opacity:1;transform:none}}
+
+/* DARK / LIGHT THEME SYSTEM */
+
+body,
+.site-header,
+.card,
+.form-card,
+.contact-item {
+  transition: background .3s ease, color .3s ease;
+}
+
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 14px;
+  border: 1px solid var(--line);
+  border-radius: 30px;
+  background: var(--panel);
+  color: var(--text);
+  cursor: pointer;
+  font-size: .82rem;
+  font-weight: 700;
+}
+
+.theme-toggle:hover {
+  border-color: var(--gold);
+}
+
+body.light-theme {
+  --bg: #f5f6fa;
+  --bg2: #ffffff;
+  --panel: rgba(0,0,0,.045);
+  --line: rgba(0,0,0,.13);
+  --text: #202738;
+  --muted: #687184;
+  --gold: #a77b30;
+  --gold2: #92651f;
+  --shadow: 0 24px 70px rgba(0,0,0,.10);
+
+  background: #f5f6fa;
+  color: var(--text);
+}
+
+body.light-theme .site-header {
+  background: rgba(255,255,255,.88);
+}
+
+body.light-theme .nav-links {
+  color: #384052;
+}
+
+body.light-theme .showcase,
+body.light-theme .cta-band {
+  background: linear-gradient(145deg,#ffffff,#e9edf5);
+}
+
+body.light-theme .floating-tag {
+  background: #ffffff;
+  color: #92651f;
+}
+
+body.light-theme .about-visual {
+  background: linear-gradient(145deg,#e7ebf3,#ffffff);
+}
+
+body.light-theme .field input,
+body.light-theme .field textarea {
+  background: #ffffff;
+  color: #202738;
+  border-color: rgba(0,0,0,.18);
+}
+
+body.light-theme .nav-links.open {
+  background: #ffffff;
+}
+
+@media(max-width:700px) {
+  .theme-toggle {
+    padding: 8px 10px;
+    font-size: .72rem;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="#home" aria-label="Sheikh Daniyal Ansari home">
+        <span class="brand-mark">SD</span>
+        <span>SHEIKH DANIYAL ANSARI<small>Custom Web Experiences</small></span>
+      </a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Open navigation" aria-expanded="false">☰</button>
+      <nav class="nav-links" id="navLinks" aria-label="Main navigation">
+        <a href="#home">Home</a><a href="#services">Services</a><a href="#free-tools">Free Tools</a><a href="#about">About</a><a href="#process">Process</a><a href="#contact">Contact</a>
+      </nav>
+      <div class="header-actions">
+
+<button type="button" class="theme-toggle" id="themeToggle">
+  <span id="themeIcon">☀</span>
+  <span id="themeLabel">Light</span>
+</button>
+
+        <div class="language-switch" role="group" aria-label="Choose language">
+          <button type="button" class="lang-btn active" data-lang="en" aria-pressed="true">EN</button>
+          <button type="button" class="lang-btn" data-lang="ur" aria-pressed="false">اردو</button>
+        </div>
+        <a class="btn btn-primary nav-cta" href="#contact">Start a project <span>↗</span></a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+        <div class="hero-copy reveal">
+          <span class="eyebrow">Independent web development</span>
+          <h1>Ideas deserve<br><span>a remarkable</span> website.</h1>
+          <p class="lead">We create clean, modern and responsive HTML websites that help businesses and professionals make a confident first impression online.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#contact">Let's talk about your website <span>↗</span></a>
+            <a class="btn btn-outline" href="#services">Explore services</a>
+          </div>
+          <div class="trust-row"><span><b class="check">✓</b> Custom-coded websites</span><span><b class="check">✓</b> Mobile-first layouts</span><span><b class="check">✓</b> No WordPress</span></div>
+        </div>
+        <div class="hero-art reveal" aria-label="Decorative website design preview">
+          <div class="orbit"></div>
+          <div class="showcase">
+            <div class="showcase-top"><span>Digital presence / 2026</span><span class="browser-dots"><i></i><i></i><i></i></span></div>
+            <div class="showcase-logo">SD</div>
+            <h3>Make your<br><span class="gold">first impression</span></h3>
+            <p>A thoughtfully built website for your next chapter.</p>
+            <div class="mock-line"></div><div class="mock-line short"></div>
+            <div class="mock-cards"><span></span><span></span><span></span></div>
+          </div>
+          <div class="floating-tag tag-one">✦ Thoughtful design</div>
+          <div class="floating-tag tag-two">⌘ Built with HTML, CSS & JS</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="stats">
+      <div class="container stats-grid">
+        <div class="stat"><strong>100% custom-coded</strong><span>Made for your requirements</span></div>
+        <div class="stat"><strong>Responsive by design</strong><span>Desktop, tablet and mobile</span></div>
+        <div class="stat"><strong>Lightweight technology</strong><span>No unnecessary frameworks</span></div>
+      </div>
+    </section>
+
+    <section class="section" id="services">
+      <div class="container">
+        <div class="section-head reveal"><span class="eyebrow">What we create</span><h2>Simple technology.<br><span class="gold">Standout results.</span></h2><p class="lead">A professional website should look polished, load smoothly and make it easy for visitors to understand what you offer.</p></div>
+        <div class="cards">
+          <article class="card reveal"><div class="icon-box">✧</div><h3>Business websites</h3><p>Professional websites that introduce your company, explain your services and help customers reach you.</p></article>
+          <article class="card reveal"><div class="icon-box">▣</div><h3>Personal & portfolio sites</h3><p>Present your experience, work and skills through a clear, memorable online profile.</p></article>
+          <article class="card reveal"><div class="icon-box">◇</div><h3>Landing pages</h3><p>Focused single-page experiences for a service, campaign, product or special announcement.</p></article>
+          <article class="card reveal"><div class="icon-box">⌘</div><h3>Custom HTML development</h3><p>Hand-coded HTML, CSS and JavaScript instead of a WordPress theme or page builder.</p></article>
+          <article class="card reveal"><div class="icon-box">↗</div><h3>Responsive redesign</h3><p>Refresh an existing website with improved structure, modern styling and mobile-friendly layouts.</p></article>
+          <article class="card reveal"><div class="icon-box">◎</div><h3>Contact & enquiry features</h3><p>Clear contact sections, click-to-call links and WhatsApp enquiry flows for easier communication.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section tools-section" id="free-tools">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Useful resources</span>
+      <h2>Free online <span class="gold">tools.</span></h2>
+      <p class="lead">
+        Explore our collection of free online tools and calculators.
+        Simple, useful and easy to use.
+      </p>
+    </div>
+
+    <div class="reveal">
+      <a href="./freetools.html" class="btn btn-primary">
+        Explore All Free Tools ↗
+      </a>
+    </div>
+  </div>
+</section>
+
+    <section class="section" id="about">
+      <div class="container about-grid">
+        <div class="about-visual reveal"><div class="monogram">SD</div><div class="visual-caption">Personal brand · Web development</div></div>
+        <div class="reveal"><span class="eyebrow">A little introduction</span><h2>Meet <span class="gold">Sheikh Daniyal Ansari.</span></h2>
+          <p class="lead">A custom website is more than a collection of pages. It is your digital introduction — a place where people can discover your work, understand your services and get in touch.</p>
+          <p style="color:var(--muted)">The focus is on building straightforward, attractive and responsive websites using core web technologies. Every project starts with understanding the purpose of the site and the people it needs to reach.</p>
+          <ul class="feature-list">
+            <li><span class="check">✦</span><span><b>Purpose-led design</b> — layouts shaped around your goals.</span></li>
+            <li><span class="check">✦</span><span><b>Clean development</b> — organized HTML, CSS and JavaScript.</span></li>
+            <li><span class="check">✦</span><span><b>Device-friendly experience</b> — designed for touch and desktop use.</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="process">
+      <div class="container">
+        <div class="section-head reveal"><span class="eyebrow">How it works</span><h2>From first conversation<br>to <span class="gold">finished website.</span></h2><p class="lead">A clear, collaborative process keeps the project organized from the beginning.</p></div>
+        <div class="process">
+          <article class="step reveal"><h3>Understand</h3><p>Discuss your business, audience, content and website goals.</p></article>
+          <article class="step reveal"><h3>Plan & design</h3><p>Choose the page structure, visual direction and key features.</p></article>
+          <article class="step reveal"><h3>Build</h3><p>Develop the responsive website and test its main interactions.</p></article>
+          <article class="step reveal"><h3>Review & launch</h3><p>Review the result, make agreed refinements and prepare it for hosting.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="cta-band reveal">
+          <div><span class="eyebrow">Have an idea?</span><h2>Let's turn your idea into <span class="gold">a website.</span></h2><p>Tell us what you need. We'll discuss a practical way to build it.</p></div>
+          <a class="btn btn-primary" href="#contact">Discuss your project ↗</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="container">
+        <div class="section-head reveal"><span class="eyebrow">Get in touch</span><h2>Let's start a <span class="gold">conversation.</span></h2><p class="lead">Call, WhatsApp or send a project enquiry. Choose whichever is easiest for you.</p></div>
+        <div class="contact-grid">
+          <div class="reveal">
+            <h3>Contact details</h3>
+            <p style="color:var(--muted)">For website enquiries, project discussions and general information.</p>
+            <div class="contact-info">
+              <a class="contact-item" href="tel:+923331255512"><small>Call only</small><strong>0333 1255512</strong></a>
+              <a class="contact-item" href="https://wa.me/923111855512" target="_blank" rel="noopener noreferrer"><small>Call &amp; WhatsApp</small><strong>0311 1855512</strong></a>
+              <div class="contact-item"><small>JazzCash — Receive payments only</small><strong dir="ltr">0300 0210419</strong></div>
+              <a class="contact-item" href="mailto:feelsoof123@gmail.com"><small>Email</small><strong>feelsoof123@gmail.com</strong></a>
+            </div>
+          </div>
+          <form class="form-card reveal" id="contactForm">
+            <h3>Send a project enquiry</h3>
+            <div class="field"><label for="name">Your name</label><input id="name" name="name" autocomplete="name" placeholder="Enter your name" required maxlength="80"></div>
+            <div class="field"><label for="phone">Your phone number</label><input id="phone" name="phone" autocomplete="tel" placeholder="Enter your phone number" required maxlength="30"></div>
+            <div class="field"><label for="message">What kind of website do you need?</label><textarea id="message" name="message" placeholder="Briefly describe your website idea..." required maxlength="1200"></textarea></div>
+            <button class="btn btn-primary" type="submit">Send enquiry on WhatsApp ↗</button>
+            <p class="form-note">This form opens WhatsApp with your message prepared. You can review it before sending.</p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-row">
+      <span>© <span id="year"></span> Sheikh Daniyal Ansari. All rights reserved.</span>
+      <div class="footer-links"><a href="#home">Back to top ↑</a><a href="#services">Services</a><a href="#contact">Contact</a></div>
+      <span>Custom HTML · CSS · JavaScript</span>
+    </div>
+  </footer>
+
+  <a class="wa-float" href="https://wa.me/923111855512" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">✆</a>
+
+  <script>
+    (() => {
+      "use strict";
+      const menuButton = document.getElementById("menuToggle");
+      const nav = document.getElementById("navLinks");
+
+// Dark / Light Theme
+const themeButton = document.getElementById("themeToggle");
+const themeIcon = document.getElementById("themeIcon");
+const themeLabel = document.getElementById("themeLabel");
+
+function setTheme(theme) {
+  const isLight = theme === "light";
+
+  document.body.classList.toggle("light-theme", isLight);
+
+  themeIcon.textContent = isLight ? "☾" : "☀";
+  themeLabel.textContent = isLight ? "Dark" : "Light";
+
+  localStorage.setItem("websiteTheme", theme);
+}
+
+const savedTheme = localStorage.getItem("websiteTheme") || "dark";
+setTheme(savedTheme);
+
+themeButton.addEventListener("click", () => {
+  const isLight = document.body.classList.contains("light-theme");
+  setTheme(isLight ? "dark" : "light");
+});
+
+
+      menuButton.addEventListener("click", () => {
+        const isOpen = nav.classList.toggle("open");
+        menuButton.setAttribute("aria-expanded", String(isOpen));
+        menuButton.setAttribute("aria-label", isOpen ? "Close navigation" : "Open navigation");
+        menuButton.textContent = isOpen ? "×" : "☰";
+      });
+
+      nav.querySelectorAll("a").forEach(link => {
+        link.addEventListener("click", () => {
+          nav.classList.remove("open");
+          menuButton.setAttribute("aria-expanded", "false");
+          menuButton.setAttribute("aria-label", "Open navigation");
+          menuButton.textContent = "☰";
+        });
+      });
+
+
+      // English / Urdu language switcher. Urdu uses right-to-left page direction.
+      const translations = {
+        "Home":"صفحۂ اول","Services":"خدمات","Free Tools":"مفت ٹولز","About":"تعارف","Process":"طریقۂ کار","Contact":"رابطہ",
+        "Useful resources":"مفید سہولیات","Free online":"مفت آن لائن","tools.":"ٹولز۔",
+        "Simple, handy tools designed to make everyday calculations and common tasks easier. Explore the collection as new tools are added.":"روزمرہ کے حساب کتاب اور عام کاموں کو آسان بنانے کے لیے سادہ اور مفید ٹولز۔ نئے ٹولز شامل ہونے کے ساتھ اس مجموعے کو دیکھتے رہیں۔",
+        "Coming Soon":"جلد آرہا ہے",
+        "Useful online tools are being prepared. Please check back soon.":"مفید آن لائن ٹولز تیار کیے جا رہے ہیں۔ جلد دوبارہ تشریف لائیں۔",
+        "Start a project":"پروجیکٹ شروع کریں","Independent web development":"آزاد ویب ڈیولپمنٹ",
+        "Ideas deserve":"آپ کے خیالات کے لیے","a remarkable":"ایک شاندار","website.":"ویب سائٹ۔",
+        "We create clean, modern and responsive HTML websites that help businesses and professionals make a confident first impression online.":"ہم صاف ستھری، جدید اور ہر اسکرین پر بہترین نظر آنے والی HTML ویب سائٹس بناتے ہیں، جو کاروبار اور پروفیشنلز کو آن لائن ایک مضبوط پہچان دیتی ہیں۔",
+        "Let's talk about your website":"اپنی ویب سائٹ پر بات کریں","Explore services":"خدمات دیکھیں",
+        "Custom-coded websites":"ضرورت کے مطابق تیار کردہ ویب سائٹس","Mobile-first layouts":"موبائل فرسٹ ڈیزائن","No WordPress":"ورڈپریس کے بغیر",
+        "Digital presence / 2026":"ڈیجیٹل شناخت / 2026","Make your":"اپنا پہلا تاثر","first impression":"یادگار بنائیں",
+        "A thoughtfully built website for your next chapter.":"آپ کے اگلے قدم کے لیے ایک سوچ سمجھ کر بنائی گئی ویب سائٹ۔",
+        "✦ Thoughtful design":"✦ خوبصورت اور بامقصد ڈیزائن","⌘ Built with HTML, CSS & JS":"⌘ HTML، CSS اور JS سے تیار",
+        "100% custom-coded":"100% حسبِ ضرورت کوڈنگ","Made for your requirements":"آپ کی ضروریات کے مطابق",
+        "Responsive by design":"ہر ڈیوائس کے لیے موزوں","Desktop, tablet and mobile":"ڈیسک ٹاپ، ٹیبلٹ اور موبائل",
+        "Lightweight technology":"ہلکی اور تیز ٹیکنالوجی","No unnecessary frameworks":"غیر ضروری فریم ورکس کے بغیر",
+        "What we create":"ہم کیا بناتے ہیں","Simple technology.":"سادہ ٹیکنالوجی۔","Standout results.":"نمایاں نتائج۔",
+        "A professional website should look polished, load smoothly and make it easy for visitors to understand what you offer.":"ایک پروفیشنل ویب سائٹ خوبصورت، تیز رفتار اور ایسی ہونی چاہیے جس سے وزیٹرز آسانی سے آپ کی خدمات سمجھ سکیں۔",
+        "Business websites":"کاروباری ویب سائٹس","Professional websites that introduce your company, explain your services and help customers reach you.":"ایسی پروفیشنل ویب سائٹس جو آپ کی کمپنی اور خدمات کا تعارف کروائیں اور کسٹمرز کو آپ تک پہنچنے میں مدد دیں۔",
+        "Personal & portfolio sites":"ذاتی اور پورٹ فولیو ویب سائٹس","Present your experience, work and skills through a clear, memorable online profile.":"اپنے تجربے، کام اور مہارتوں کو ایک واضح اور یادگار آن لائن پروفائل کے ذریعے پیش کریں۔",
+        "Landing pages":"لینڈنگ پیجز","Focused single-page experiences for a service, campaign, product or special announcement.":"کسی سروس، مہم، پروڈکٹ یا خاص اعلان کے لیے مؤثر سنگل پیج ویب سائٹ۔",
+        "Custom HTML development":"کسٹم HTML ڈیولپمنٹ","Hand-coded HTML, CSS and JavaScript instead of a WordPress theme or page builder.":"ورڈپریس تھیم یا پیج بلڈر کے بجائے HTML، CSS اور JavaScript سے براہِ راست کوڈنگ۔",
+        "Responsive redesign":"ویب سائٹ کا جدید ڈیزائن","Refresh an existing website with improved structure, modern styling and mobile-friendly layouts.":"موجودہ ویب سائٹ کو بہتر اسٹرکچر، جدید اسٹائل اور موبائل فرینڈلی ڈیزائن کے ساتھ نیا بنائیں۔",
+        "Contact & enquiry features":"رابطہ اور انکوائری فیچرز","Clear contact sections, click-to-call links and WhatsApp enquiry flows for easier communication.":"آسان رابطے کے لیے واضح کانٹیکٹ سیکشن، کال لنکس اور واٹس ایپ انکوائری سہولت۔",
+        "A little introduction":"مختصر تعارف","Meet":"ملیے","Sheikh Daniyal Ansari.":"شیخ دانیال انصاری سے۔",
+        "A custom website is more than a collection of pages. It is your digital introduction — a place where people can discover your work, understand your services and get in touch.":"کسٹم ویب سائٹ صرف چند صفحات کا مجموعہ نہیں بلکہ آپ کی ڈیجیٹل پہچان ہے، جہاں لوگ آپ کا کام دیکھتے، خدمات سمجھتے اور آپ سے رابطہ کرتے ہیں۔",
+        "The focus is on building straightforward, attractive and responsive websites using core web technologies. Every project starts with understanding the purpose of the site and the people it needs to reach.":"ہم بنیادی ویب ٹیکنالوجیز کے ذریعے سادہ، خوبصورت اور ریسپانسیو ویب سائٹس بناتے ہیں۔ ہر پروجیکٹ کا آغاز ویب سائٹ کے مقصد اور اس کے مطلوبہ صارفین کو سمجھنے سے ہوتا ہے۔",
+        "Purpose-led design":"مقصد کے مطابق ڈیزائن"," — layouts shaped around your goals.":" — آپ کے اہداف کے مطابق لے آؤٹ۔",
+        "Clean development":"معیاری ڈیولپمنٹ"," — organized HTML, CSS and JavaScript.":" — منظم HTML، CSS اور JavaScript۔",
+        "Device-friendly experience":"ہر ڈیوائس کے لیے موزوں"," — designed for touch and desktop use.":" — موبائل اور ڈیسک ٹاپ دونوں کے لیے ڈیزائن۔",
+        "Personal brand · Web development":"ذاتی برانڈ · ویب ڈیولپمنٹ",
+        "How it works":"کام کیسے ہوتا ہے","From first conversation":"پہلی گفتگو سے","to":"لے کر","finished website.":"مکمل ویب سائٹ تک۔",
+        "A clear, collaborative process keeps the project organized from the beginning.":"واضح اور باہمی تعاون پر مبنی طریقۂ کار پروجیکٹ کو ابتدا سے منظم رکھتا ہے۔",
+        "Understand":"ضروریات سمجھنا","Discuss your business, audience, content and website goals.":"آپ کے کاروبار، صارفین، مواد اور ویب سائٹ کے مقاصد پر بات۔",
+        "Plan & design":"منصوبہ بندی اور ڈیزائن","Choose the page structure, visual direction and key features.":"صفحات کی ترتیب، ڈیزائن اور اہم فیچرز کا انتخاب۔",
+        "Build":"تیار کرنا","Develop the responsive website and test its main interactions.":"ریسپانسیو ویب سائٹ بنانا اور اہم فیچرز کی جانچ۔",
+        "Review & launch":"جائزہ اور لانچ","Review the result, make agreed refinements and prepare it for hosting.":"نتیجے کا جائزہ، طے شدہ بہتری اور ہوسٹنگ کی تیاری۔",
+        "Have an idea?":"کوئی آئیڈیا ہے؟","Let's turn your idea into a":"آئیے آپ کے آئیڈیا کو بنائیں","a website.":"ایک ویب سائٹ۔",
+        "Tell us what you need. We'll discuss a practical way to build it.":"اپنی ضرورت بتائیں، ہم اسے عملی شکل دینے کے طریقے پر بات کریں گے۔",
+        "Discuss your project":"اپنے پروجیکٹ پر بات کریں","Get in touch":"رابطہ کریں","Let's start a":"آئیے شروع کریں","conversation.":"بات چیت۔",
+        "Call, WhatsApp or send a project enquiry. Choose whichever is easiest for you.":"کال کریں، واٹس ایپ کریں یا پروجیکٹ کی انکوائری بھیجیں۔ جو طریقہ آسان ہو منتخب کریں۔",
+        "Contact details":"رابطے کی تفصیلات","For website enquiries, project discussions and general information.":"ویب سائٹ کی انکوائری، پروجیکٹ پر گفتگو اور عمومی معلومات کے لیے۔",
+        "Call only":"صرف کال کے لیے","Call & WhatsApp":"کال اور واٹس ایپ",
+        "JazzCash — Receive payments only":"جاز کیش — صرف رقم وصول کرنے کے لیے","Email":"ای میل",
+        "Send a project enquiry":"پروجیکٹ کی انکوائری بھیجیں","Your name":"آپ کا نام","Your phone number":"آپ کا فون نمبر",
+        "What kind of website do you need?":"آپ کو کس قسم کی ویب سائٹ چاہیے؟","Enter your name":"اپنا نام درج کریں",
+        "Enter your phone number":"اپنا فون نمبر درج کریں","Briefly describe your website idea...":"اپنے ویب سائٹ آئیڈیا کی مختصر وضاحت کریں...",
+        "Send enquiry on WhatsApp":"واٹس ایپ پر انکوائری بھیجیں",
+        "This form opens WhatsApp with your message prepared. You can review it before sending.":"یہ فارم آپ کا پیغام تیار کرکے واٹس ایپ کھولے گا۔ بھیجنے سے پہلے آپ اسے دیکھ سکتے ہیں۔",
+        "Back to top ↑":"اوپر جائیں ↑","All rights reserved.":"جملہ حقوق محفوظ ہیں۔","Custom HTML · CSS · JavaScript":"کسٹم HTML · CSS · JavaScript"
+      };
+
+      const languageButtons = document.querySelectorAll(".lang-btn");
+      const originalTextNodes = new Map();
+      function setLanguage(language) {
+        const isUrdu = language === "ur";
+        document.documentElement.lang = isUrdu ? "ur" : "en";
+        document.documentElement.dir = isUrdu ? "rtl" : "ltr";
+        document.body.classList.toggle("rtl", isUrdu);
+        languageButtons.forEach(button => {
+          const active = button.dataset.lang === language;
+          button.classList.toggle("active", active);
+          button.setAttribute("aria-pressed", String(active));
+        });
+
+        const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+        const textNodes = [];
+        while (walker.nextNode()) {
+          const node = walker.currentNode;
+          textNodes.push(node);
+          if (!originalTextNodes.has(node)) originalTextNodes.set(node, node.nodeValue);
+        }
+        textNodes.forEach(node => {
+          const original = originalTextNodes.get(node);
+          const trimmed = original.trim();
+          if (!trimmed) return;
+          const translated = isUrdu ? translations[trimmed] : null;
+          node.nodeValue = translated ? original.replace(trimmed, translated) : original;
+        });
+
+        document.querySelectorAll(".field input").forEach(input => {
+          if (!input.dataset.originalPlaceholder) input.dataset.originalPlaceholder = input.placeholder;
+          const placeholders = {
+            "Enter your name":"اپنا نام درج کریں",
+            "Enter your phone number":"اپنا فون نمبر درج کریں"
+          };
+          input.placeholder = isUrdu
+            ? (placeholders[input.dataset.originalPlaceholder] || input.dataset.originalPlaceholder)
+            : input.dataset.originalPlaceholder;
+        });
+        const messageBox = document.getElementById("message");
+        if (messageBox) {
+          if (!messageBox.dataset.originalPlaceholder) messageBox.dataset.originalPlaceholder = messageBox.placeholder;
+          messageBox.placeholder = isUrdu ? "اپنے ویب سائٹ آئیڈیا کی مختصر وضاحت کریں..." : messageBox.dataset.originalPlaceholder;
+        }
+      }
+      languageButtons.forEach(button => button.addEventListener("click", () => setLanguage(button.dataset.lang)));
+
+
+
+      // Discourage casual copying. This is a browser-side deterrent, not true content security.
+      document.addEventListener("contextmenu", event => event.preventDefault());
+      document.addEventListener("copy", event => event.preventDefault());
+      document.addEventListener("cut", event => event.preventDefault());
+      document.addEventListener("selectstart", event => {
+        if (!["INPUT", "TEXTAREA"].includes(event.target.tagName)) event.preventDefault();
+      });
+      document.addEventListener("keydown", event => {
+        const key = event.key.toLowerCase();
+        if ((event.ctrlKey || event.metaKey) && ["c", "x", "u", "s", "p"].includes(key)) {
+          event.preventDefault();
+        }
+        if (event.key === "F12" || (event.ctrlKey && event.shiftKey && ["i", "j", "c"].includes(key))) {
+          event.preventDefault();
+        }
+      });
+
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      const revealItems = document.querySelectorAll(".reveal");
+      if ("IntersectionObserver" in window && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        const observer = new IntersectionObserver((entries, obs) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+              obs.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.12 });
+        revealItems.forEach(item => observer.observe(item));
+      } else {
+        revealItems.forEach(item => item.classList.add("visible"));
+      }
+
+      document.getElementById("contactForm").addEventListener("submit", event => {
+        event.preventDefault();
+        const name = document.getElementById("name").value.trim();
+        const phone = document.getElementById("phone").value.trim();
+        const message = document.getElementById("message").value.trim();
+        if (!name || !phone || !message) return;
+
+        const text = [
+          "Website Project Enquiry",
+          "Name: " + name,
+          "Phone: " + phone,
+          "Website requirement: " + message
+        ].join("\n");
+        const whatsappUrl = "https://wa.me/923111855512?text=" + encodeURIComponent(text);
+        window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+      });
+    })();
+  </script>
+</body>
+</html>

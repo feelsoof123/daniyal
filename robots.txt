@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Sitemap for Search Engines
+Sitemap: https://shaiekhfielsoufansari-droid.github.io/daniya-website/sitemap.xml

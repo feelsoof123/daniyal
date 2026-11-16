@@ -1,0 +1,456 @@
+/* ========================================================
+   Sheikh Daniyal Ansari — Official Website Stylesheet
+   Theme: Luxury Dark Gold / Custom Web Experiences
+   Version: 1.0.0
+   ======================================================== */
+
+/* --- 1. Font Definitions (Local & Fallbacks) --- */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('fonts/Inter-400.woff2') format('woff2'),
+       local('Inter'),
+       sans-serif;
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('fonts/Inter-600.woff2') format('woff2'),
+       local('Inter SemiBold'),
+       sans-serif;
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('fonts/Inter-700.woff2') format('woff2'),
+       local('Inter Bold'),
+       sans-serif;
+}
+
+@font-face {
+  font-family: 'Noto Nastaliq Urdu';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('fonts/NotoNastaliqUrdu-400.woff2') format('woff2'),
+       local('Noto Nastaliq Urdu'),
+       serif;
+}
+
+@font-face {
+  font-family: 'Noto Nastaliq Urdu';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('fonts/NotoNastaliqUrdu-700.woff2') format('woff2'),
+       local('Noto Nastaliq Urdu Bold'),
+       serif;
+}
+
+/* --- 2. CSS Design Variables --- */
+:root {
+  --bg: #090d18;
+  --bg2: #0d1423;
+  --panel: rgba(255, 255, 255, 0.055);
+  --line: rgba(255, 255, 255, 0.12);
+  --gold: #d9b56d;
+  --gold2: #f1d79d;
+  --text: #f4f1e9;
+  --muted: #a8afbd;
+  --max: 1160px;
+  --radius: 22px;
+  --radius-sm: 12px;
+  --radius-pill: 999px;
+  --shadow: 0 24px 70px rgba(0, 0, 0, 0.32);
+  --shadow-gold: 0 12px 34px rgba(217, 181, 109, 0.2);
+}
+
+/* --- 3. Global Resets & Base Styles --- */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 90px;
+}
+
+body {
+  margin: 0;
+  background: radial-gradient(ellipse at 80% 0%, rgba(217, 181, 109, 0.12), transparent 35%), var(--bg);
+  color: var(--text);
+  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  line-height: 1.65;
+  overflow-x: hidden;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Permit text selection inside interactive form inputs */
+input, textarea, select, [contenteditable="true"] {
+  -webkit-user-select: text !important;
+  -moz-user-select: text !important;
+  -ms-user-select: text !important;
+  user-select: text !important;
+  font: inherit;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 9px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--gold2), var(--gold));
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gold2);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button, a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.container {
+  width: min(var(--max), calc(100% - 44px));
+  margin-inline: auto;
+}
+
+.gold {
+  color: var(--gold2);
+}
+
+.nastaliq {
+  font-family: 'Noto Nastaliq Urdu', serif;
+}
+
+/* --- 4. Navigation & Site Header --- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(9, 13, 24, 0.85);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.nav {
+  height: 82px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 850;
+  letter-spacing: 0.02em;
+}
+
+.brand-mark {
+  width: 43px;
+  height: 43px;
+  border: 1px solid rgba(217, 181, 109, 0.65);
+  border-radius: 13px;
+  display: grid;
+  place-items: center;
+  color: var(--gold2);
+  font-family: Georgia, serif;
+  font-size: 1.15rem;
+  background: linear-gradient(145deg, rgba(217, 181, 109, 0.16), rgba(255, 255, 255, 0.02));
+  box-shadow: inset 0 0 18px rgba(217, 181, 109, 0.08);
+}
+
+.brand small {
+  display: block;
+  color: var(--muted);
+  font-size: 0.62rem;
+  letter-spacing: 0.19em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  color: #c4c9d2;
+  font-size: 0.91rem;
+}
+
+.nav-links a {
+  transition: color 0.2s;
+}
+
+.nav-links a:hover {
+  color: var(--gold2);
+}
+
+.nav-cta {
+  padding: 11px 18px;
+  min-height: 42px;
+  font-size: 0.86rem;
+}
+
+.menu-toggle {
+  display: none;
+  background: none;
+  border: 1px solid var(--line);
+  color: var(--text);
+  border-radius: 12px;
+  width: 44px;
+  height: 44px;
+  font-size: 1.35rem;
+  cursor: pointer;
+}
+
+/* Floating Home Button on Calculators */
+.back-home-btn {
+  position: fixed;
+  top: 18px;
+  left: 18px;
+  z-index: 9999;
+  background: rgba(9, 13, 24, 0.9);
+  color: var(--gold2);
+  padding: 8px 18px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--gold);
+  text-decoration: none;
+  font-weight: bold;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+  transition: all 0.25s ease;
+  font-size: 0.9rem;
+}
+
+.back-home-btn:hover {
+  background: var(--gold);
+  color: #17130b;
+  transform: translateY(-2px);
+}
+
+/* --- 5. Buttons & Badges --- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 50px;
+  padding: 0 22px;
+  border-radius: var(--radius-pill);
+  border: 1px solid transparent;
+  font-weight: 800;
+  transition: transform 0.25s, background 0.25s, border-color 0.25s, box-shadow 0.25s;
+  cursor: pointer;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--gold2), var(--gold));
+  color: #17130b;
+  box-shadow: var(--shadow-gold);
+}
+
+.btn-primary:hover {
+  box-shadow: 0 16px 40px rgba(217, 181, 109, 0.35);
+}
+
+.btn-outline {
+  border-color: var(--line);
+  background: rgba(255, 255, 255, 0.035);
+  color: var(--text);
+}
+
+.btn-outline:hover {
+  border-color: var(--gold);
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--gold2);
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.eyebrow:before {
+  content: "";
+  width: 26px;
+  height: 1px;
+  background: var(--gold);
+}
+
+/* --- 6. Sections & Grid System --- */
+.section {
+  padding: 100px 0;
+}
+
+.section-head {
+  max-width: 690px;
+  margin-bottom: 44px;
+}
+
+h1, h2, h3, p {
+  margin-top: 0;
+}
+
+h1, h2, h3 {
+  line-height: 1.15;
+  letter-spacing: -0.035em;
+}
+
+h1 {
+  font-size: clamp(2.8rem, 6.5vw, 5.8rem);
+  margin: 22px 0;
+}
+
+h2 {
+  font-size: clamp(2rem, 4.5vw, 3.6rem);
+  margin: 15px 0;
+}
+
+h3 {
+  font-size: 1.28rem;
+}
+
+.lead {
+  color: var(--muted);
+  font-size: clamp(1rem, 1.7vw, 1.18rem);
+  max-width: 640px;
+}
+
+/* Cards Grid */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.018));
+  transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(217, 181, 109, 0.5);
+  box-shadow: var(--shadow);
+}
+
+.icon-box {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border-radius: 15px;
+  color: var(--gold2);
+  background: rgba(217, 181, 109, 0.1);
+  border: 1px solid rgba(217, 181, 109, 0.18);
+  font-size: 1.25rem;
+  margin-bottom: 22px;
+}
+
+.card p {
+  color: var(--muted);
+  font-size: 0.94rem;
+  margin-bottom: 0;
+}
+
+/* --- 7. WhatsApp Floating Action Button --- */
+.wa-float {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 99;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #25D366, #128C7E);
+  color: #ffffff;
+  display: grid;
+  place-items: center;
+  font-size: 1.6rem;
+  box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+
+.wa-float:hover {
+  transform: scale(1.1) translateY(-3px);
+  box-shadow: 0 14px 35px rgba(37, 211, 102, 0.6);
+}
+
+/* --- 8. Reveal Animations --- */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* --- 9. Responsive Layout Rules --- */
+@media (max-width: 900px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .nav-links {
+    display: none;
+  }
+  .menu-toggle {
+    display: grid;
+    place-items: center;
+  }
+}
+
+@media (max-width: 600px) {
+  .container {
+    width: calc(100% - 30px);
+  }
+  .section {
+    padding: 70px 0;
+  }
+  .wa-float {
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    font-size: 1.4rem;
+  }
+}

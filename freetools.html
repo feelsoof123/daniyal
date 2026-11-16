@@ -1,0 +1,459 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="./favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+  <link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#090d18">
+<title>Free Online Tools | Sheikh Daniyal Ansari</title>
+
+<style>
+:root {
+  --bg:#090d18;
+  --panel:rgba(255,255,255,.055);
+  --line:rgba(255,255,255,.12);
+  --gold:#d9b56d;
+  --gold2:#f1d79d;
+  --text:#f4f1e9;
+  --muted:#a8afbd;
+  --radius:20px;
+}
+
+* {
+  box-sizing:border-box;
+  -webkit-user-select:none;
+  user-select:none;
+}
+
+/* Keep form fields usable: users can still type and select entered text */
+input,
+textarea,
+[contenteditable="true"] {
+  -webkit-user-select:text;
+  user-select:text;
+}
+
+body {
+  margin:0;
+  background:radial-gradient(ellipse at 80% 0%,rgba(217,181,109,.12),transparent 35%),var(--bg);
+  color:var(--text);
+  font-family:Inter,system-ui,sans-serif;
+  line-height:1.6;
+  transition:.3s;
+}
+
+a {color:inherit;text-decoration:none}
+
+.container {
+  width:min(1100px,calc(100% - 36px));
+  margin:auto;
+}
+
+header {
+  position:sticky;
+  top:0;
+  z-index:10;
+  background:rgba(9,13,24,.88);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--line);
+}
+
+.nav {
+  min-height:78px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+}
+
+.brand {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  font-weight:850;
+}
+
+.brand-mark {
+  width:43px;
+  height:43px;
+  display:grid;
+  place-items:center;
+  border:1px solid var(--gold);
+  border-radius:13px;
+  color:var(--gold2);
+  font-family:Georgia,serif;
+}
+
+.brand small {
+  display:block;
+  font-size:.65rem;
+  color:var(--muted);
+  letter-spacing:2px;
+}
+
+.actions {
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.btn {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:11px 19px;
+  border-radius:30px;
+  font-weight:800;
+  border:1px solid var(--line);
+  cursor:pointer;
+  transition:.25s;
+  background:transparent;
+  color:var(--text);
+}
+
+.btn:hover {transform:translateY(-3px)}
+
+.primary {
+  background:linear-gradient(135deg,var(--gold2),var(--gold));
+  color:#17130b;
+  border:0;
+}
+
+.hero {
+  text-align:center;
+  padding:90px 0 50px;
+}
+
+.eyebrow {
+  color:var(--gold2);
+  font-size:.78rem;
+  font-weight:800;
+  letter-spacing:3px;
+  text-transform:uppercase;
+}
+
+h1 {
+  font-size:clamp(2.5rem,6vw,4.5rem);
+  line-height:1.1;
+  margin:20px 0;
+}
+
+.gold {color:var(--gold2)}
+
+.hero p {
+  max-width:650px;
+  margin:auto;
+  color:var(--muted);
+}
+
+.search {
+  width:min(500px,100%);
+  margin:35px auto 0;
+  display:block;
+  padding:15px 20px;
+  border:1px solid var(--line);
+  border-radius:40px;
+  background:var(--panel);
+  color:var(--text);
+  outline:none;
+  font-size:1rem;
+}
+
+.search:focus {border-color:var(--gold)}
+
+.tools {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+  padding:25px 0 100px;
+}
+
+.card {
+  min-height:250px;
+  padding:28px;
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  background:linear-gradient(145deg,rgba(255,255,255,.06),rgba(255,255,255,.015));
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+  transition:.3s;
+}
+
+.card:hover {
+  transform:translateY(-7px);
+  border-color:var(--gold);
+  box-shadow:0 15px 40px rgba(0,0,0,.2);
+}
+
+
+.icon {
+  width:58px;
+  height:58px;
+  display:grid;
+  place-items:center;
+  border-radius:17px;
+  background:rgba(217,181,109,.12);
+  border:1px solid rgba(217,181,109,.25);
+  font-size:2.4rem;
+  line-height:1;
+  margin-bottom:18px;
+  overflow:hidden;
+}
+
+.icon img {
+  width:54px;
+  height:54px;
+  object-fit:cover;
+  display:block;
+  border-radius:13px;
+}
+
+
+.card h3 {margin:0 0 10px;font-size:1.18rem}
+
+.card p {
+  color:var(--muted);
+  font-size:.9rem;
+  margin:0 0 22px;
+}
+
+.card .btn {margin-top:auto;width:100%}
+
+.empty {
+  display:none;
+  text-align:center;
+  color:var(--muted);
+  padding:30px;
+}
+
+footer {
+  border-top:1px solid var(--line);
+  padding:28px 0;
+  color:var(--muted);
+  text-align:center;
+  font-size:.85rem;
+}
+
+/* Light Theme */
+
+body.light-theme {
+  --bg:#f5f6fa;
+  --panel:rgba(0,0,0,.04);
+  --line:rgba(0,0,0,.13);
+  --text:#202738;
+  --muted:#687184;
+  --gold:#a77b30;
+  --gold2:#92651f;
+  background:#f5f6fa;
+  color:var(--text);
+}
+
+body.light-theme header {
+  background:rgba(255,255,255,.9);
+}
+
+body.light-theme .card {
+  background:linear-gradient(145deg,#fff,#edf0f5);
+}
+
+body.light-theme .search {
+  background:#fff;
+  color:#202738;
+}
+
+@media(max-width:850px) {
+  .tools {grid-template-columns:repeat(2,1fr)}
+}
+
+@media(max-width:550px) {
+  .tools {grid-template-columns:1fr}
+  .hero {padding:65px 0 35px}
+  .nav {min-height:70px}
+  .brand {font-size:.8rem}
+  .btn {padding:9px 12px;font-size:.78rem}
+  .brand-mark {width:38px;height:38px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="container nav">
+
+    <a href="./index.html" class="brand">
+      <span class="brand-mark">SD</span>
+      <span>
+        SHEIKH DANIYAL ANSARI
+        <small>FREE ONLINE TOOLS</small>
+      </span>
+    </a>
+
+    <div class="actions">
+      <button class="btn" id="themeToggle">☀ Light</button>
+      <a href="./index.html" class="btn primary">← Home</a>
+    </div>
+
+  </div>
+</header>
+
+<main>
+
+  <section class="hero">
+    <div class="container">
+
+      <span class="eyebrow">Useful Resources</span>
+
+      <h1>
+        Free Online<br>
+        <span class="gold">Tools & Calculators</span>
+      </h1>
+
+      <p>
+        Explore our collection of useful online calculators and
+        professional tools. Simple, fast and free to use.
+      </p>
+
+
+    </div>
+  </section>
+
+
+<section class="container">
+
+  <div class="tools" id="toolsGrid">
+
+    <article class="card">
+      <div class="icon">
+        <img src="./abjad-logo.png" onerror="this.onerror=null;this.src='./images/abjad-logo.png'" alt="Abjad Calculator Logo">
+      </div>
+      <h3>Abjad Calculator</h3>
+      <p>Calculate Abjad Qamri, Shamsi and Malfozi values easily.</p>
+      <a href="./calculator.html" class="btn primary">
+        Open Calculator ↗
+      </a>
+    </article>
+      
+    <article class="card">
+      <div class="icon">
+        <img src="./takseer-e-jafar-logo.png" onerror="this.onerror=null;this.src='./images/takseer-e-jafar-logo.png'" alt="Takseer-e-Jafar Logo">
+      </div>
+      <h3>Takseer-e-Jafar (جفری تکسیر)</h3>
+      <p>Calculate Geffri Takseer values easily (صدر موخر و موخر صدر)۔</p>
+      <a href="./calculator_1.html" class="btn primary">Open Calculator ↗</a>
+    </article>
+
+
+      <article class="card">
+        <div class="icon">🧮</div>
+        <h3>UnitX Professional Calculator</h3>
+        <p>Convert length, weight, area, volume and Pakistani land measurements.</p>
+        <a href="./calculator_2.html" class="btn primary">Open Calculator ↗</a>
+      </article>
+
+      <article class="card">
+        <div class="icon">📏</div>
+        <h3>Lambai Unit Converter</h3>
+        <p>Convert Millimeter, Soot, Centimeter, Inch, Foot, Gaz, Meter and Kilometer.</p>
+        <a href="./calculator_3.html" class="btn primary">Open Calculator ↗</a>
+      </article>
+
+      <article class="card">
+        <div class="icon">🏠</div>
+        <h3>House Construction Cost Calculator</h3>
+        <p>Calculate construction costs based on covered area and rates in Pakistan.</p>
+        <a href="./calculator_4.html" class="btn primary">Open Calculator ↗</a>
+      </article>
+
+      <article class="card">
+        <div class="icon">🔵</div>
+        <h3>3 Hole Equal Gap Calculator</h3>
+        <p>Calculate precise center positions and equal gaps with a technical drawing.</p>
+        <a href="./calculator_5.html" class="btn primary">Open Calculator ↗</a>
+      </article>
+
+      <article class="card">
+        <div class="icon">⌨️</div>
+        <h3>Calculator</h3>
+        <p>Perform quick and accurate calculations with a keyboard-based calculator.</p>
+        <a href="./calculator_6.html" class="btn primary">Open Calculator ↗</a>
+      </article>
+<!-- Calculator 7 -->
+<article class="card">
+  <div class="icon">📊</div>
+  <h3>Calculator</h3>
+  <p>Use this professional online tool for quick and accurate calculations.</p>
+  <a href="./calculator_7.html" class="btn primary">
+    Open Calculator ↗
+  </a>
+</article>
+<!-- Calculator 8 -->
+      <article class="card">
+        <div class="icon">⚙️</div>
+        <h3>MM Converter & Calculator</h3>
+        <p>Precise millimeter measurements aur unit conversions asani se nikalien.</p>
+        <a href="./calculator_8.html" class="btn primary">Open Calculator ↗</a>
+      </article>
+      <article class="card">
+        <div class="icon">✦</div>
+        <h3>Coming Soon</h3>
+        <p>More useful online tools are being prepared.</p>
+        <span class="btn" style="margin-top:auto;width:100%;color:var(--gold2)">
+          More Tools Coming Soon
+        </span>
+      </article>
+
+    </div>
+
+
+
+  </section>
+
+</main>
+
+<footer>
+  <div class="container">
+    © <span id="year"></span> Sheikh Daniyal Ansari.
+    All rights reserved.
+    <br>
+    <a href="./index.html">Back to Main Website ↑</a>
+  </div>
+</footer>
+
+<script>
+"use strict";
+
+// Dark / Light Theme
+const themeButton = document.getElementById("themeToggle");
+
+function setTheme(theme) {
+  const light = theme === "light";
+
+  document.body.classList.toggle("light-theme", light);
+
+  themeButton.textContent = light ? "☾ Dark" : "☀ Light";
+
+  localStorage.setItem("websiteTheme", theme);
+}
+
+setTheme(localStorage.getItem("websiteTheme") || "dark");
+
+themeButton.addEventListener("click", () => {
+  const light = document.body.classList.contains("light-theme");
+  setTheme(light ? "dark" : "light");
+});
+
+
+
+// Footer Year
+document.getElementById("year").textContent =
+  new Date().getFullYear();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,281 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="./favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+  <link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0b1020">
+<title>UnitX Professional Calculator</title>
+<style>
+*{box-sizing:border-box}
+body {
+  -webkit-user-select: none;
+  user-select: none;
+}
+body{margin:0;background:#0b1020;color:#f2f6ff;font:16px Arial,sans-serif}
+.app{max-width:950px;margin:auto;padding:20px}
+header{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:25px  padding-right: 180px;
+}
+.logo{background:linear-gradient(135deg,#31d6ff,#7562ff);padding:13px;border-radius:14px;font-size:22px;font-weight:bold}
+.brand{display:flex;align-items:center;gap:12px}
+h1{font-size:23px;margin:0}h2{font-size:28px}h3{margin-top:0}
+p{color:#9eafca;line-height:1.6}
+.panel{background:#151f33;border:1px solid #293954;border-radius:18px;padding:22px;margin-bottom:18px}
+label{display:block;color:#9eafca;font-size:12px;margin:12px 0 7px}
+input,select{width:100%;padding:13px;background:#0b1426;color:white;border:1px solid #334663;border-radius:10px;font-size:16px}
+button{padding:12px;border:0;border-radius:10px;background:#23baff;color:#061321;font-weight:bold;cursor:pointer}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.result{background:#102d43;border:1px solid #26516c;border-radius:13px;padding:18px;margin-top:18px}
+.result strong{display:block;color:#61dcff;font-size:clamp(24px,5vw,35px);overflow-wrap:anywhere;margin-top:8px}
+.actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:15px}
+.actions button{flex:1}
+.secondary{background:#263751;color:#fff}
+.categories{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
+.cat{background:#1c2b43;color:white;border:1px solid #344865;padding:15px 5px}
+.cat.active{border:1px solid #32cfff;background:#103650;color:#5fe0ff}
+.owner{text-align:center}
+.owner h3{margin-bottom:5px}
+.phone{display:inline-block;color:#69dcff;background:#0b1426;padding:12px;margin:5px;border-radius:9px;text-decoration:none}
+small{color:#9eafca}
+footer{text-align:center;padding:20px;color:#8291aa;font-size:12px}
+@media(max-width:520px){.app{padding:13px}.panel{padding:16px}.categories{grid-template-columns:repeat(3,1fr)}.grid{gap:9px}h2{font-size:24px}}
+@media print{body{display:none!important}}
+
+</style>
+
+<style id="uniBarStyle">
+/* ===== UNIFIED NAV BAR ===== */
+#uniBar {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+#uniHome, #uniTheme {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 11px 19px;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform .25s, box-shadow .25s;
+  text-decoration: none;
+  font-family: inherit;
+  letter-spacing: .01em;
+  white-space: nowrap;
+  user-select: none;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.45);
+}
+#uniHome {
+  background: linear-gradient(135deg,#f1d79d,#d9b56d);
+  color: #17130b;
+  border: 0;
+}
+#uniTheme {
+  background: rgba(255,255,255,0.10);
+  color: #f4f1e9;
+  border: 1px solid rgba(255,255,255,0.18);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+#uniHome:hover, #uniTheme:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.5);
+}
+/* Light Mode */
+body.u-light { filter: invert(1) hue-rotate(180deg); }
+body.u-light img,
+body.u-light video,
+body.u-light canvas { filter: invert(1) hue-rotate(180deg); }
+body.u-light #uniTheme {
+  background: rgba(0,0,0,0.08);
+  color: #202738;
+  border-color: rgba(0,0,0,0.15);
+}
+@media(max-width:480px){
+  #uniBar { top:10px; right:10px; gap:7px; }
+  #uniHome, #uniTheme { padding:9px 13px; font-size:12px; }
+}
+</style></head>
+`<body>
+<div id="uniBar"><a id="uniHome" href="./freetools.html">&#8592; Free Tools</a><button id="uniTheme" onclick="toggleUniTheme()">&#9728;&#65039; Light</button></div>
+
+<div class="app">
+<header>
+ <div class="brand"><div class="logo">UX</div><div><h1>UnitX</h1><small>Professional Converter</small></div></div>
+
+</header>
+
+<h2>Measurement Calculator</h2>
+<p>Fast and accurate unit conversions for construction, land and everyday use.</p>
+
+<section class="panel">
+<h3>Universal Unit Converter</h3>
+<label for="category">Choose category</label>
+<select id="category" onchange="changeCategory()"></select>
+<div class="grid">
+ <div><label for="value">Enter value</label><input id="value" type="number" step="any" value="1" oninput="calculate()"></div>
+ <div><label for="from">From unit</label><select id="from" onchange="calculate()"></select></div>
+</div>
+<label for="to">Convert to</label><select id="to" onchange="calculate()"></select>
+<div class="result">CONVERSION RESULT<strong id="result">304.8</strong><span id="unit">mm</span><p id="equation"></p></div>
+<div class="actions">
+<button onclick="copyResult()">Copy result</button>
+<button class="secondary" onclick="swapUnits()">⇄ Swap units</button>
+<button class="secondary" onclick="resetCalc()">Reset</button>
+</div>
+</section>
+
+<section class="panel">
+<h3>Measurement Categories</h3>
+<div class="categories" id="categories"></div>
+</section>
+
+<section class="panel">
+<h3>Pakistani Land Calculator</h3>
+<p>Select the marla standard applicable to your area.</p>
+<label for="marla">Marla standard</label>
+<select id="marla" onchange="landCalc()">
+<option value="272.25">1 Marla = 272.25 square feet</option>
+<option value="225">1 Marla = 225 square feet</option>
+</select>
+<div class="grid">
+<div><label for="landValue">Enter area</label><input id="landValue" type="number" value="1" step="any" oninput="landCalc()"></div>
+<div><label for="landFrom">From</label><select id="landFrom" onchange="landCalc()"></select></div>
+</div>
+<label for="landTo">Convert to</label><select id="landTo" onchange="landCalc()"></select>
+<div class="result">LAND RESULT<strong id="landResult">20</strong><span id="landUnit">Marla</span></div>
+<p>1 Kanal = 20 Marla. 1 Acre = 43,560 square feet. Local land records can use different standards.</p>
+</section>
+
+<section class="panel">
+<h3>Feet + Inches Calculator</h3>
+<div class="grid">
+<div><label for="feet">Feet</label><input id="feet" type="number" value="5" step="any" oninput="feetCalc()"></div>
+<div><label for="inches">Additional inches</label><input id="inches" type="number" value="6" step="any" oninput="feetCalc()"></div>
+</div>
+<div class="result">TOTAL MEASUREMENT<strong id="feetResult">5 ft 6 in</strong><p id="feetDetails"></p></div>
+</section>
+
+<section class="panel owner">
+<div class="logo" style="display:inline-block;margin-bottom:15px">SA</div>
+<h3>Shaiekh Fielsouf Ansari</h3>
+<small>OWNER · UNITX CONVERTER</small>
+<p>Contact owner</p>
+<a class="phone" href="tel:03000210419">☎ 03000210419</a>
+<a class="phone" href="tel:03111855512">☎ 03111855512</a>
+</section>
+<footer>© 2026 UnitX Professional Calculator</footer>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+const data={
+"Length":{icon:"📏",u:{mm:["Millimeter",.001],cm:["Centimeter",.01],m:["Meter",1],km:["Kilometer",1000],inch:["Inch",.0254],ft:["Foot",.3048],yd:["Yard",.9144],mi:["Mile",1609.344]}},
+"Weight":{icon:"⚖️",u:{mg:["Milligram",.000001],g:["Gram",.001],kg:["Kilogram",1],tonne:["Metric tonne",1000],oz:["Ounce",.028349523],lb:["Pound",.45359237]}},
+"Area":{icon:"▦",u:{mm2:["Square millimeter",.000001],cm2:["Square centimeter",.0001],m2:["Square meter",1],km2:["Square kilometer",1000000],ft2:["Square foot",.09290304],in2:["Square inch",.00064516],yd2:["Square yard",.83612736],acre:["Acre",4046.8564224],ha:["Hectare",10000]}},
+"Volume":{icon:"🧪",u:{ml:["Milliliter",.001],l:["Liter",1],m3:["Cubic meter",1000],tsp:["US teaspoon",.004928922],tbsp:["US tablespoon",.014786765],cup:["US cup",.236588237],gal:["US gallon",3.785411784]}},
+"Temperature":{icon:"🌡️",u:{C:["Celsius",1],F:["Fahrenheit",1],K:["Kelvin",1]}},
+"Speed":{icon:"🚀",u:{"m/s":["Meters/second",1],"km/h":["Kilometers/hour",1/3.6],mph:["Miles/hour",.44704],knot:["Knot",.514444444]}},
+"Time":{icon:"⏱️",u:{sec:["Second",1],min:["Minute",60],hr:["Hour",3600],day:["Day",86400],week:["Week",604800],year:["Year (365 days)",31536000]}},
+"Digital":{icon:"💾",u:{bit:["Bit",.125],B:["Byte",1],KB:["Kilobyte",1000],MB:["Megabyte",1e6],GB:["Gigabyte",1e9],TB:["Terabyte",1e12],KiB:["Kibibyte",1024],MiB:["Mebibyte",1048576],GiB:["Gibibyte",1073741824]}},
+"Pressure":{icon:"🔵",u:{Pa:["Pascal",1],kPa:["Kilopascal",1000],bar:["Bar",100000],atm:["Atmosphere",101325],psi:["PSI",6894.757293]}},
+"Energy":{icon:"⚡",u:{J:["Joule",1],kJ:["Kilojoule",1000],cal:["Calorie",4.184],kcal:["Kilocalorie",4184],Wh:["Watt-hour",3600],kWh:["Kilowatt-hour",3600000]}},
+"Power":{icon:"🔋",u:{W:["Watt",1],kW:["Kilowatt",1000],MW:["Megawatt",1000000],hp:["Horsepower",745.699872]}},
+"Angle":{icon:"📐",u:{deg:["Degree",1],rad:["Radian",180/Math.PI],grad:["Gradian",.9]}}
+};
+let current="Length";
+function fmt(n){if(!Number.isFinite(n))return "Not defined";return Number(n.toPrecision(11)).toLocaleString("en-US",{maximumFractionDigits:9,useGrouping:false})}
+function fill(sel,units,selected){
+sel.innerHTML="";
+Object.keys(units).forEach(k=>{let o=document.createElement("option");o.value=k;o.textContent=k+" — "+units[k][0];sel.appendChild(o)});
+if(selected&&units[selected])sel.value=selected;
+}
+function changeCategory(){
+current=$("category").value;
+const units=data[current].u;
+const defaults={Length:["ft","inch"],Weight:["kg","lb"],Area:["m2","ft2"],Volume:["l","gal"],Temperature:["C","F"],Speed:["km/h","mph"],Time:["hr","min"],Digital:["MB","GB"],Pressure:["bar","psi"],Energy:["kWh","J"],Power:["kW","hp"],Angle:["deg","rad"]};
+fill($("from"),units,defaults[current][0]);fill($("to"),units,defaults[current][1]);
+document.querySelectorAll(".cat").forEach(b=>b.classList.toggle("active",b.dataset.name===current));
+calculate();
+}
+function convertTemp(v,a,b){
+let c=a==="C"?v:a==="F"?(v-32)*5/9:v-273.15;
+return b==="C"?c:b==="F"?c*9/5+32:c+273.15;
+}
+function calculate(){
+let v=Number($("value").value),a=$("from").value,b=$("to").value;
+let ans;
+if($("value").value.trim()==="")ans=NaN;
+else if(current==="Temperature")ans=convertTemp(v,a,b);
+else ans=v*data[current].u[a][1]/data[current].u[b][1];
+$("result").textContent=fmt(ans);$("unit").textContent=$("to").value;
+$("equation").textContent=$("value").value+" "+a+" = "+fmt(ans)+" "+b;
+}
+function swapUnits(){let a=$("from").value;$("from").value=$("to").value;$("to").value=a;calculate()}
+function resetCalc(){$("value").value=1;calculate()}
+async function copyResult(){
+let text=$("result").textContent+" "+$("unit").textContent;
+try{await navigator.clipboard.writeText(text);alert("Result copied: "+text)}
+catch{prompt("Copy this result:",text)}
+}
+Object.keys(data).forEach(name=>{
+let o=document.createElement("option");o.value=name;o.textContent=data[name].icon+" "+name;$("category").appendChild(o);
+let b=document.createElement("button");b.className="cat";b.dataset.name=name;b.textContent=data[name].icon+" "+name;
+b.onclick=()=>{$("category").value=name;changeCategory()};$("categories").appendChild(b);
+});
+$("category").value="Length";changeCategory();
+
+const land={
+sqft:["Square feet",1],sqyd:["Square yards",9],
+marla:["Marla",0],kanal:["Kanal",0],acre:["Acre",43560],
+hectare:["Hectare",107639.104167],sqm:["Square meters",10.7639104167]
+};
+function landFactor(k){let m=Number($("marla").value);return k==="marla"?m:k==="kanal"?m*20:land[k][1]}
+function landCalc(){
+let raw=$("landValue").value,v=Number(raw),a=$("landFrom").value,b=$("landTo").value;
+let result=raw.trim()===""?NaN:v*landFactor(a)/landFactor(b);
+$("landResult").textContent=fmt(result);$("landUnit").textContent=land[b][0];
+}
+function feetCalc(){
+let f=Number($("feet").value||0),i=Number($("inches").value||0);
+let total=f*12+i,m=total*.0254;
+$("feetResult").textContent=fmt(Math.trunc(total/12))+" ft "+fmt(total%12)+" in";
+$("feetDetails").textContent=fmt(total)+" total inches · "+fmt(m*100)+" cm · "+fmt(m)+" m · "+fmt(m*1000)+" mm";
+}
+fill($("landFrom"),land,"kanal");fill($("landTo"),land,"marla");
+$("landFrom").onchange=landCalc;$("landTo").onchange=landCalc;
+landCalc();feetCalc();
+document.addEventListener("contextmenu",e=>e.preventDefault());
+document.addEventListener("copy", e => {
+  if (!e.target.closest(".actions")) {
+    e.preventDefault();
+  }
+});
+</script>
+
+<script id="uniBarScript">
+function toggleUniTheme(){
+  var l=document.body.classList.toggle('u-light');
+  document.getElementById('uniTheme').innerHTML=l?'&#127769; Dark':'&#9728;&#65039; Light';
+  localStorage.setItem('uniTheme',l?'light':'dark');
+}
+(function(){
+  if(localStorage.getItem('uniTheme')==='light'){
+    document.body.classList.add('u-light');
+    var b=document.getElementById('uniTheme');
+    if(b)b.innerHTML='&#127769; Dark';
+  }
+})();
+</script>
+</body>
+</html>

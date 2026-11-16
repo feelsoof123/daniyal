@@ -1,0 +1,370 @@
+﻿<!DOCTYPE html>
+<html lang="ur" class="h-full bg-slate-950 text-slate-100">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="./favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+  <link rel="manifest" href="manifest.json">
+    <title>Circle Running MM Calculator</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        yellowAccent: '#FACC15',
+                        yellowAccentHover: '#EAB308',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .yellow-glow { box-shadow: 0 0 25px rgba(250, 204, 21, 0.35); }
+        .no-select { user-select: none; }
+    
+</style>
+
+<style id="uniBarStyle">
+/* ===== UNIFIED NAV BAR ===== */
+#uniBar {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+#uniHome, #uniTheme {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 11px 19px;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform .25s, box-shadow .25s;
+  text-decoration: none;
+  font-family: inherit;
+  letter-spacing: .01em;
+  white-space: nowrap;
+  user-select: none;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.45);
+}
+#uniHome {
+  background: linear-gradient(135deg,#f1d79d,#d9b56d);
+  color: #17130b;
+  border: 0;
+}
+#uniTheme {
+  background: rgba(255,255,255,0.10);
+  color: #f4f1e9;
+  border: 1px solid rgba(255,255,255,0.18);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+#uniHome:hover, #uniTheme:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.5);
+}
+/* Light Mode */
+body.u-light { filter: invert(1) hue-rotate(180deg); }
+body.u-light img,
+body.u-light video,
+body.u-light canvas { filter: invert(1) hue-rotate(180deg); }
+body.u-light #uniTheme {
+  background: rgba(0,0,0,0.08);
+  color: #202738;
+  border-color: rgba(0,0,0,0.15);
+}
+@media(max-width:480px){
+  #uniBar { top:10px; right:10px; gap:7px; }
+  #uniHome, #uniTheme { padding:9px 13px; font-size:12px; }
+}
+</style></head>
+`<body class="min-h-screen flex flex-col justify-between bg-slate-950 text-slate-100 no-select">
+<div id="uniBar"><a id="uniHome" href="./freetools.html">&#8592; Free Tools</a><button id="uniTheme" onclick="toggleUniTheme()">&#9728;&#65039; Light</button></div>
+
+
+    <!-- Top Header with Owner Info -->
+    <header class="border-b border-slate-800 bg-slate-900/90 sticky top-0 z-50">
+        <div class="max-w-4xl mx-auto px-4 py-3 flex flex-col sm:flex-row items-center justify-between gap-3" style="padding-right:200px;">
+            <div class="flex items-center space-x-3">
+                <div class="w-9 h-9 rounded-xl bg-yellowAccent text-slate-950 flex items-center justify-center text-lg font-black shadow-lg shadow-yellow-500/20">
+                    <i class="fa-solid fa-circle-notch"></i>
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold tracking-tight text-white flex items-center gap-2">
+                        Circle Running MM Calculator
+                        <span class="text-xs bg-yellowAccent/20 text-yellowAccent border border-yellowAccent/40 px-2 py-0.5 rounded-full font-medium">v2.0</span>
+                    </h1>
+                </div>
+            </div>
+        </div>
+    
+</header>
+
+    <!-- Main Content Box -->
+    <main class="max-w-4xl mx-auto px-4 py-8 w-full flex-grow flex items-center justify-center">
+        <div class="w-full bg-slate-900/90 border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-2xl relative overflow-hidden">
+            <div class="absolute -top-12 -right-12 w-40 h-40 bg-yellowAccent/10 rounded-full blur-3xl pointer-events-none"></div>
+
+            <!-- Title & Formula Header -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6">
+                <h2 class="text-lg font-bold text-slate-200 flex items-center gap-2">
+                    <i class="fa-solid fa-calculator text-yellowAccent"></i> Input Diameter (D)
+                </h2>
+                <span class="text-xs text-slate-400">Formula: <code class="bg-slate-800 text-yellow-300 px-2 py-0.5 rounded">D × π (3.14159)</code></span>
+            </div>
+
+            <!-- Primary Yellow Input Field -->
+            <div class="mb-5">
+                <label for="diameterInput" class="block text-xs sm:text-sm font-semibold text-yellow-400 mb-2 flex items-center justify-between">
+                    <span>DIAMETER (Yellow Input) [MM]</span>
+                    <span class="text-xs text-slate-400 font-normal">Smallest (0.1) to Largest (10,000+)</span>
+                </label>
+                <div class="relative">
+                    <input type="number" id="diameterInput" min="0" step="any" value="18" 
+                        class="w-full bg-yellow-400 text-slate-950 font-black text-2xl sm:text-3xl px-5 py-4 rounded-xl focus:outline-none focus:ring-4 focus:ring-yellow-300 transition shadow-inner yellow-glow placeholder-slate-800 select-text"
+                        placeholder="Enter Diameter in MM..." oninput="calculate()">
+                    <div class="absolute right-4 top-1/2 -translate-y-1/2 flex items-center gap-2">
+                        <span class="font-extrabold text-slate-900 bg-yellow-300/80 px-3 py-1 rounded-lg text-sm border border-yellow-500">MM</span>
+                        <button onclick="clearInput()" title="Clear Input" class="text-slate-800 hover:text-red-700 p-1 font-bold">
+                            <i class="fa-solid fa-xmark text-lg"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Presets -->
+            <div class="mb-6">
+                <label class="block text-xs font-medium text-slate-400 mb-2">
+                    <i class="fa-solid fa-bolt text-yellow-400 mr-1"></i> Quick Presets (Common Sizes):
+                </label>
+                <div class="flex flex-wrap gap-2">
+                    <button onclick="setPreset(10)" class="px-3 py-1.5 text-xs font-semibold bg-slate-800 hover:bg-yellowAccent hover:text-slate-950 text-slate-300 rounded-lg transition border border-slate-700">10 mm</button>
+                    <button onclick="setPreset(50)" class="px-3 py-1.5 text-xs font-semibold bg-slate-800 hover:bg-yellowAccent hover:text-slate-950 text-slate-300 rounded-lg transition border border-slate-700">50 mm</button>
+                    <button onclick="setPreset(100)" class="px-3 py-1.5 text-xs font-semibold bg-slate-800 hover:bg-yellowAccent hover:text-slate-950 text-slate-300 rounded-lg transition border border-slate-700">100 mm</button>
+                    <button onclick="setPreset(500)" class="px-3 py-1.5 text-xs font-semibold bg-slate-800 hover:bg-yellowAccent hover:text-slate-950 text-slate-300 rounded-lg transition border border-slate-700">500 mm</button>
+                    <button onclick="setPreset(1000)" class="px-3 py-1.5 text-xs font-semibold bg-slate-800 hover:bg-yellowAccent hover:text-slate-950 text-slate-300 rounded-lg transition border border-slate-700">1,000 mm</button>
+                    <button onclick="setPreset(2000)" class="px-3 py-1.5 text-xs font-semibold bg-slate-800 hover:bg-yellowAccent hover:text-slate-950 text-slate-300 rounded-lg transition border border-slate-700">2,000 mm</button>
+                    <button onclick="setPreset(5000)" class="px-3 py-1.5 text-xs font-semibold bg-slate-800 hover:bg-yellowAccent hover:text-slate-950 text-slate-300 rounded-lg transition border border-slate-700">5,000 mm</button>
+                    <button onclick="setPreset(10000)" class="px-3 py-1.5 text-xs font-semibold bg-slate-800 hover:bg-yellowAccent hover:text-slate-950 text-slate-300 rounded-lg transition border border-slate-700">10,000 mm</button>
+                </div>
+            </div>
+
+            <!-- Single Hole Result Box -->
+            <div class="bg-slate-950 border border-slate-800 rounded-xl p-5 mb-6">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-xs uppercase tracking-wider text-slate-400 font-bold">Total Running MM (Circumference)</span>
+                    <button onclick="copyToClipboard('resultMM', 'Single Hole MM')" class="text-xs bg-slate-800 hover:bg-slate-700 text-yellow-400 px-2.5 py-1 rounded flex items-center gap-1 border border-slate-700 transition">
+                        <i class="fa-regular fa-copy"></i> Copy MM
+                    </button>
+                </div>
+                <div class="flex items-baseline gap-2">
+                    <span id="resultMM" class="text-3xl sm:text-4xl font-extrabold text-yellowAccent">56.55</span>
+                    <span class="text-lg font-bold text-slate-400">mm</span>
+                </div>
+            </div>
+
+            <!-- Multi-Unit Conversions Grid (Single Hole) -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+                <div class="bg-slate-800/50 border border-slate-700/60 p-3.5 rounded-xl flex flex-col justify-between">
+                    <span class="text-xs text-slate-400 font-medium mb-1">In Meters (m)</span>
+                    <div class="flex items-center justify-between">
+                        <span id="resultMeter" class="text-lg font-bold text-slate-100">0.057 m</span>
+                        <button onclick="copyToClipboard('resultMeter', 'Meters')" class="text-slate-400 hover:text-yellow-400 text-xs p-1">
+                            <i class="fa-regular fa-copy"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/50 border border-slate-700/60 p-3.5 rounded-xl flex flex-col justify-between">
+                    <span class="text-xs text-slate-400 font-medium mb-1">In Inches (in)</span>
+                    <div class="flex items-center justify-between">
+                        <span id="resultInches" class="text-lg font-bold text-slate-100">2.23 in</span>
+                        <button onclick="copyToClipboard('resultInches', 'Inches')" class="text-slate-400 hover:text-yellow-400 text-xs p-1">
+                            <i class="fa-regular fa-copy"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/50 border border-slate-700/60 p-3.5 rounded-xl flex flex-col justify-between">
+                    <span class="text-xs text-slate-400 font-medium mb-1">In Feet (ft)</span>
+                    <div class="flex items-center justify-between">
+                        <span id="resultFeet" class="text-lg font-bold text-slate-100">0.19 ft</span>
+                        <button onclick="copyToClipboard('resultFeet', 'Feet')" class="text-slate-400 hover:text-yellow-400 text-xs p-1">
+                            <i class="fa-regular fa-copy"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quantity / Hole Count Section -->
+            <div class="border-t border-slate-800 pt-6">
+                <div class="mb-4">
+                    <label for="qtyInput" class="block text-xs sm:text-sm font-semibold text-yellow-400 mb-2 flex items-center justify-between">
+                        <span>HOLE QUANTITY (TADAD) [Koy bhi tadad likhen]</span>
+                        <span class="text-xs text-slate-400 font-normal">e.g. 1000, 500, 50</span>
+                    </label>
+                    <div class="relative">
+                        <input type="number" id="qtyInput" min="1" step="1" value="1000" 
+                            class="w-full bg-slate-950 text-yellow-400 font-extrabold text-xl sm:text-2xl px-4 py-3 rounded-xl border border-yellow-500/50 focus:outline-none focus:border-yellow-400 transition select-text"
+                            placeholder="Tadad likhein (e.g. 1000)..." oninput="calculate()">
+                        <div class="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400">
+                            HOLES / PIECES
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Total Quantity Results Card -->
+                <div class="bg-yellow-400/10 border border-yellow-400/40 rounded-xl p-5">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs uppercase tracking-wider text-yellow-400 font-bold flex items-center gap-1.5">
+                            <i class="fa-solid fa-cubes"></i> Total Grand Running MM (<span id="qtyLabel">1000</span> Holes)
+                        </span>
+                        <button onclick="copyToClipboard('totalQtyMM', 'Total Quantity MM')" class="text-xs bg-yellow-400 text-slate-950 font-bold px-2.5 py-1 rounded flex items-center gap-1 hover:bg-yellow-300 transition">
+                            <i class="fa-regular fa-copy"></i> Copy Total
+                        </button>
+                    </div>
+
+                    <div class="flex items-baseline gap-2 mb-4">
+                        <span id="totalQtyMM" class="text-3xl sm:text-4xl font-black text-yellow-400">56,548.67</span>
+                        <span class="text-lg font-bold text-yellow-200">mm</span>
+                    </div>
+
+                    <!-- Quantity Unit Conversions -->
+                    <div class="grid grid-cols-3 gap-2 text-center text-xs border-t border-yellow-500/20 pt-3">
+                        <div class="bg-slate-950/70 p-2 rounded-lg">
+                            <div class="text-slate-400 text-[10px]">Total Meters</div>
+                            <div id="totalQtyMeters" class="font-bold text-white text-sm mt-0.5">56.55 m</div>
+                        </div>
+                        <div class="bg-slate-950/70 p-2 rounded-lg">
+                            <div class="text-slate-400 text-[10px]">Total Inches</div>
+                            <div id="totalQtyInches" class="font-bold text-white text-sm mt-0.5">2,226.33 in</div>
+                        </div>
+                        <div class="bg-slate-950/70 p-2 rounded-lg">
+                            <div class="text-slate-400 text-[10px]">Total Feet</div>
+                            <div id="totalQtyFeet" class="font-bold text-white text-sm mt-0.5">185.53 ft</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Toast Notification -->
+            <div id="toast" class="hidden absolute bottom-4 right-4 bg-yellowAccent text-slate-950 px-4 py-2 rounded-lg font-bold text-xs shadow-lg transition-all duration-300 flex items-center gap-2 z-20">
+                <i class="fa-solid fa-check-circle"></i> <span id="toastMsg">Copied!</span>
+            </div>
+        </div>
+    </main>
+
+    <!-- JavaScript Logic -->
+    <script>
+        window.onload = function() {
+            calculate();
+        };
+
+        function calculate() {
+            let diameter = parseFloat(document.getElementById('diameterInput').value);
+            let qty = parseFloat(document.getElementById('qtyInput').value);
+
+            if (isNaN(diameter) || diameter < 0) diameter = 0;
+            if (isNaN(qty) || qty < 1) qty = 1;
+
+            // Single Hole Calculations
+            const runningMM = diameter * Math.PI;
+            const runningMeter = runningMM / 1000;
+            const runningInches = runningMM / 25.4;
+            const runningFeet = runningInches / 12;
+
+            // Total Quantity Calculations
+            const totalMM = runningMM * qty;
+            const totalMeters = totalMM / 1000;
+            const totalInches = totalMM / 25.4;
+            const totalFeet = totalInches / 12;
+
+            // Update UI - Single Hole
+            document.getElementById('resultMM').innerText = formatNumber(runningMM, 2);
+            document.getElementById('resultMeter').innerText = formatNumber(runningMeter, 3) + ' m';
+            document.getElementById('resultInches').innerText = formatNumber(runningInches, 2) + ' in';
+            document.getElementById('resultFeet').innerText = formatNumber(runningFeet, 2) + ' ft';
+
+            // Update UI - Quantity Totals
+            document.getElementById('qtyLabel').innerText = qty.toLocaleString();
+            document.getElementById('totalQtyMM').innerText = formatNumber(totalMM, 2);
+            document.getElementById('totalQtyMeters').innerText = formatNumber(totalMeters, 2) + ' m';
+            document.getElementById('totalQtyInches').innerText = formatNumber(totalInches, 2) + ' in';
+            document.getElementById('totalQtyFeet').innerText = formatNumber(totalFeet, 2) + ' ft';
+        }
+
+        function formatNumber(num, decimals = 2) {
+            return num.toLocaleString('en-US', {
+                minimumFractionDigits: decimals,
+                maximumFractionDigits: decimals
+            });
+        }
+
+        function setPreset(val) {
+            document.getElementById('diameterInput').value = val;
+            calculate();
+        }
+
+        function clearInput() {
+            document.getElementById('diameterInput').value = '';
+            calculate();
+            document.getElementById('diameterInput').focus();
+        }
+
+        function copyToClipboard(elementId, label = '') {
+            const el = document.getElementById(elementId);
+            if (!el) return;
+            const textToCopy = el.innerText;
+
+            const tempInput = document.createElement('textarea');
+            tempInput.value = textToCopy;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+
+            showToast(`${label || 'Result'} Copied!`);
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toastMsg');
+            toastMsg.innerText = message;
+            toast.classList.remove('hidden');
+
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 2000);
+        }
+    </script>
+
+<script id="uniBarScript">
+function toggleUniTheme(){
+  var l=document.body.classList.toggle('u-light');
+  document.getElementById('uniTheme').innerHTML=l?'&#127769; Dark':'&#9728;&#65039; Light';
+  localStorage.setItem('uniTheme',l?'light':'dark');
+}
+(function(){
+  if(localStorage.getItem('uniTheme')==='light'){
+    document.body.classList.add('u-light');
+    var b=document.getElementById('uniTheme');
+    if(b)b.innerHTML='&#127769; Dark';
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#090d18">
+  <meta name="robots" content="noindex, follow">
+  <title>Page Not Found | Sheikh Daniyal Ansari</title>
+  <link rel="icon" href="./favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+  <link rel="manifest" href="manifest.json">
+ <style>
+    *{box-sizing:border-box}
+    
+    body{
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      background: radial-gradient(ellipse at 80% 0%,rgba(217,181,109,.13),transparent 36%),#090d18;
+      color: #f4f1e9;
+      font-family: Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+      text-align: center;
+      
+      /* Yeh line text select (highlight) hona band kar degi */
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    
+    main{
+      width: min(100%, 620px);
+      padding: 48px 28px;
+      border: 1px solid rgba(217,181,109,.25);
+      border-radius: 24px;
+      background: rgba(255,255,255,.035);
+      box-shadow: 0 24px 70px rgba(0,0,0,.32);
+      
+      /* Yeh dono lines "404" aur baaki saari cheezon ko bilkul center mein lock kar dengi */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .mark{
+      width: 58px;
+      height: 58px;
+      margin: 0 0 28px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(217,181,109,.65);
+      border-radius: 16px;
+      color: #f1d79d;
+      font: 800 20px Georgia,serif;
+      background: linear-gradient(145deg,rgba(217,181,109,.16),rgba(255,255,255,.02));
+    }
+    
+    .code{
+      margin: 0;
+      color: #f1d79d;
+      font-size: clamp(4rem,14vw,7rem);
+      line-height: 1;
+      font-weight: 850;
+      letter-spacing: 0; /* Is se number khiskega nahi, bilkul seedh mein rahega */
+    }
+    
+    h1{
+      margin: 18px 0 12px;
+      font-size: clamp(1.5rem,5vw,2.2rem);
+    }
+    
+    p{
+      color: #a8afbd;
+      line-height: 1.7;
+      margin: 0 0 28px;
+      max-width: 440px;
+    }
+    
+    a{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0 22px;
+      border-radius: 999px;
+      background: linear-gradient(135deg,#f1d79d,#d9b56d);
+      color: #17130b;
+      text-decoration: none;
+      font-weight: 800;
+    }
+    
+    a:hover{
+      transform: translateY(-2px);
+    }
+    
+    small{
+      display: block;
+      margin-top: 28px;
+      color: #a8afbd;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="mark" aria-hidden="true">SD</div>
+    <p class="code">404</p>
+    <h1>Page not found</h1>
+    <p>The page you are looking for may have moved, been renamed, or is no longer available.</p>
+    <a href="./">Back to homepage ↗</a>
+    <small>Sheikh Daniyal Ansari · Custom Web Experiences</small>
+  </main>
+</body>
+</html>

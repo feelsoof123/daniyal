@@ -1,0 +1,219 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="./favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+  <link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#101827">
+<title>GXDiag | Professional Keyboard Tester</title>
+<style>
+:root{color-scheme:dark;--bg:#0b1220;--surface:#111c2e;--surface2:#17243a;--line:#293951;--text:#edf3fb;--muted:#91a2b9;--accent:#38bdf8;--accent2:#818cf8;--good:#34d399;--bad:#fb7185;--key:#26364d;--keytop:#344861;--shadow:0 18px 50px #0005}
+*{box-sizing:border-box;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}body{margin:0;background:radial-gradient(ellipse at 50% -20%,#1b3654 0,transparent 55%),var(--bg);color:var(--text);font:15px/1.5 Inter,Segoe UI,Arial,sans-serif;min-height:100vh}
+body.light{color-scheme:light;--bg:#eef3f9;--surface:#fff;--surface2:#f5f8fc;--line:#d9e2ee;--text:#172338;--muted:#64748b;--accent:#0284c7;--accent2:#6366f1;--good:#059669;--bad:#e11d48;--key:#e2eaf4;--keytop:#fff;--shadow:0 18px 45px #29415b18;background:radial-gradient(ellipse at 50% -20%,#d7eaff 0,transparent 55%),var(--bg)}
+button,select{font:inherit}button{cursor:pointer}.app{max-width:1500px;margin:auto;padding:28px clamp(14px,3vw,42px) 20px}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;margin-bottom:28pxpadding-right:200px;
+}.brand{display:flex;align-items:center;gap:13px}.brand-mark{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(135deg,var(--accent),var(--accent2));color:white;font-size:22px;font-weight:900;box-shadow:0 8px 25px #38bdf844}.brand h1{font-size:20px;letter-spacing:.04em;margin:0}.brand p{margin:2px 0 0;color:var(--muted);font-size:12px}.top-actions{display:flex;gap:9px;flex-wrap:wrap}.btn,.select{border:1px solid var(--line);background:var(--surface);color:var(--text);border-radius:11px;padding:10px 14px}.btn:hover{border-color:var(--accent);transform:translateY(-1px)}.btn.primary{background:linear-gradient(120deg,var(--accent),var(--accent2));color:white;border:0;font-weight:700}.hero{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap;margin-bottom:20px}.eyebrow{color:var(--accent);font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase}.hero h2{font-size:clamp(26px,4vw,38px);line-height:1.15;margin:7px 0}.hero p{color:var(--muted);margin:0;max-width:650px}.layout-controls{display:flex;gap:10px;flex-wrap:wrap;align-items:end}.field{display:grid;gap:5px}.field label{font-size:11px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.08em}.select{min-width:145px}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;margin:20px 0}.stat{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px 18px;box-shadow:var(--shadow)}.stat .label{font-size:11px;color:var(--muted);font-weight:800;letter-spacing:.09em;text-transform:uppercase}.stat .value{font-size:27px;font-weight:800;margin-top:4px;font-variant-numeric:tabular-nums}.stat .hint{font-size:11px;color:var(--muted)}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);overflow:hidden}.panel-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:17px 20px;border-bottom:1px solid var(--line);flex-wrap:wrap}.panel-head h3{font-size:14px;margin:0;letter-spacing:.06em;text-transform:uppercase}.panel-head p{font-size:12px;color:var(--muted);margin:3px 0 0}.panel-tools{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.small-btn{background:var(--surface2);border:1px solid var(--line);color:var(--text);padding:7px 10px;border-radius:9px;font-size:12px}.keyboard-scroll{overflow-x:auto;padding:22px 18px 28px}.keyboard{min-width:760px;max-width:1120px;margin:auto;padding:20px;background:linear-gradient(145deg,var(--surface2),var(--surface));border:1px solid var(--line);border-radius:18px;box-shadow:inset 0 2px 0 #ffffff12,0 16px 35px #0002}.kb-main{display:grid;gap:7px}.key-row{display:flex;gap:6px;justify-content:center}.key{--w:1;flex:var(--w) 1 0;min-width:0;height:clamp(38px,4.2vw,53px);border:1px solid color-mix(in srgb,var(--keytop),transparent 15%);border-bottom:4px solid color-mix(in srgb,var(--key),#000 24%);border-radius:8px;background:linear-gradient(160deg,var(--keytop),var(--key));color:var(--text);display:flex;align-items:center;justify-content:center;position:relative;font-size:clamp(10px,.9vw,13px);font-weight:700;user-select:none;transition:background .08s,border-color .08s,transform .08s;white-space:nowrap}.key .sub{position:absolute;top:4px;left:6px;font-size:8px;color:var(--muted);font-weight:500}.key.active{background:var(--accent)!important;color:#06111c!important;border-color:var(--accent)!important;border-bottom-width:2px;transform:translateY(2px);box-shadow:0 0 0 2px color-mix(in srgb,var(--accent),transparent 65%),0 0 18px color-mix(in srgb,var(--accent),transparent 45%);z-index:2}.key.tested:not(.active){background:color-mix(in srgb,var(--good),var(--surface) 78%);border-color:color-mix(in srgb,var(--good),var(--line) 55%);color:var(--good)}.key.wide{--w:1.5}.key.xwide{--w:2}.key.xxwide{--w:2.5}.key.space{--w:6}.key.spacer{visibility:hidden;border:0;background:transparent;box-shadow:none}.key.empty{visibility:hidden;border:0;background:transparent;box-shadow:none}
+.keyboard-bottom{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:14px;color:var(--muted);font-size:11px}.legend{display:flex;gap:15px;flex-wrap:wrap}.dot{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:5px;background:var(--accent)}.dot.green{background:var(--good)}.dot.gray{background:var(--keytop)}
+.lower{display:grid;grid-template-columns:1.4fr 1fr;gap:14px;margin-top:16px}.log{height:155px;overflow:auto;padding:13px;display:flex;align-content:flex-start;gap:7px;flex-wrap:wrap}.log-item{background:var(--surface2);border:1px solid var(--line);border-radius:8px;padding:5px 8px;font:12px ui-monospace,monospace;color:var(--accent)}.empty-state{color:var(--muted);font-size:13px}.status-body{padding:17px 20px}.status-line{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid var(--line);font-size:13px}.status-line:last-child{border:0}.status-line span:first-child{color:var(--muted)}.status-good{color:var(--good);font-weight:700}.status-warn{color:var(--bad);font-weight:700}
+.instructions{margin-top:16px;padding:16px 19px;background:var(--surface2);border:1px solid var(--line);border-radius:14px;color:var(--muted);font-size:12px}.instructions strong{color:var(--text)}footer{margin-top:28px;padding:18px 4px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:12px}.owner strong{color:var(--text)}.contact{display:flex;gap:14px;flex-wrap:wrap}.contact a{color:var(--accent);text-decoration:none}.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:var(--surface);border:1px solid var(--line);padding:10px 15px;border-radius:12px;box-shadow:var(--shadow);transition:.2s;z-index:10}.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:850px){.stats{grid-template-columns:repeat(2,1fr)}.lower{grid-template-columns:1fr}.hero{align-items:start}.layout-controls{width:100%}.field{flex:1}.select{width:100%}}
+@media(max-width:480px){.app{padding:17px 12px}.stats{gap:8px}.stat{padding:12px}.stat .value{font-size:22px}.topbar{margin-bottom:20pxpadding-right:200px;
+}.keyboard-scroll{padding:14px 10px}.panel-head{padding:14px}.brand h1{font-size:17px}}
+
+</style>
+
+<style id="uniBarStyle">
+/* ===== UNIFIED NAV BAR ===== */
+#uniBar {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+#uniHome, #uniTheme {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 11px 19px;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform .25s, box-shadow .25s;
+  text-decoration: none;
+  font-family: inherit;
+  letter-spacing: .01em;
+  white-space: nowrap;
+  user-select: none;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.45);
+}
+#uniHome {
+  background: linear-gradient(135deg,#f1d79d,#d9b56d);
+  color: #17130b;
+  border: 0;
+}
+#uniTheme {
+  background: rgba(255,255,255,0.10);
+  color: #f4f1e9;
+  border: 1px solid rgba(255,255,255,0.18);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+#uniHome:hover, #uniTheme:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.5);
+}
+/* Light Mode */
+body.u-light { filter: invert(1) hue-rotate(180deg); }
+body.u-light img,
+body.u-light video,
+body.u-light canvas { filter: invert(1) hue-rotate(180deg); }
+body.u-light #uniTheme {
+  background: rgba(0,0,0,0.08);
+  color: #202738;
+  border-color: rgba(0,0,0,0.15);
+}
+@media(max-width:480px){
+  #uniBar { top:10px; right:10px; gap:7px; }
+  #uniHome, #uniTheme { padding:9px 13px; font-size:12px; }
+}
+</style></head>
+`<body>
+<div id="uniBar"><a id="uniHome" href="./freetools.html">&#8592; Free Tools</a><button id="uniTheme" onclick="toggleUniTheme()">&#9728;&#65039; Light</button></div>
+
+<div class="app">
+<header class="topbar">
+  <div class="brand"><div class="brand-mark">⌨</div><div><h1>GXDIAG <span style="color:var(--accent)">KEYBOARD TESTER</span></h1><p>Professional keyboard diagnostics</p></div></div>
+  <div>GXDiag Keyboard Tester · English Edition</div></footer>
+</div>
+<div class="toast" id="toast" role="status"></div>
+<script>
+(() => {
+'use strict';
+const $ = id => document.getElementById(id);
+const models = {
+ full:{name:'Full Size',rows:[
+ ['Escape','F1','F2','F3','F4','F5','F6','F7','F8','F9','F10','F11','F12','PrintScreen','ScrollLock','Pause'],
+ ['Backquote','Digit1','Digit2','Digit3','Digit4','Digit5','Digit6','Digit7','Digit8','Digit9','Digit0','Minus','Equal','Backspace','Insert','Home','PageUp','NumLock','NumpadDivide','NumpadMultiply','NumpadSubtract'],
+ ['Tab','KeyQ','KeyW','KeyE','KeyR','KeyT','KeyY','KeyU','KeyI','KeyO','KeyP','BracketLeft','BracketRight','Backslash','Delete','End','PageDown','Numpad7','Numpad8','Numpad9','NumpadAdd'],
+ ['CapsLock','KeyA','KeyS','KeyD','KeyF','KeyG','KeyH','KeyJ','KeyK','KeyL','Semicolon','Quote','Enter','Numpad4','Numpad5','Numpad6'],
+ ['ShiftLeft','KeyZ','KeyX','KeyC','KeyV','KeyB','KeyN','KeyM','Comma','Period','Slash','ShiftRight','ArrowUp','Numpad1','Numpad2','Numpad3','NumpadEnter'],
+ ['ControlLeft','MetaLeft','AltLeft','Space','AltRight','ContextMenu','ControlRight','ArrowLeft','ArrowDown','ArrowRight','Numpad0','NumpadDecimal']]},
+ tkl:{name:'Tenkeyless',rows:[
+ ['Escape','F1','F2','F3','F4','F5','F6','F7','F8','F9','F10','F11','F12','PrintScreen','ScrollLock','Pause'],
+ ['Backquote','Digit1','Digit2','Digit3','Digit4','Digit5','Digit6','Digit7','Digit8','Digit9','Digit0','Minus','Equal','Backspace','Insert','Home','PageUp'],
+ ['Tab','KeyQ','KeyW','KeyE','KeyR','KeyT','KeyY','KeyU','KeyI','KeyO','KeyP','BracketLeft','BracketRight','Backslash','Delete','End','PageDown'],
+ ['CapsLock','KeyA','KeyS','KeyD','KeyF','KeyG','KeyH','KeyJ','KeyK','KeyL','Semicolon','Quote','Enter'],
+ ['ShiftLeft','KeyZ','KeyX','KeyC','KeyV','KeyB','KeyN','KeyM','Comma','Period','Slash','ShiftRight','ArrowUp'],
+ ['ControlLeft','MetaLeft','AltLeft','Space','AltRight','ContextMenu','ControlRight','ArrowLeft','ArrowDown','ArrowRight']]},
+ '75':{name:'75% Compact',rows:[
+ ['Escape','F1','F2','F3','F4','F5','F6','F7','F8','F9','F10','F11','F12','Delete'],
+ ['Backquote','Digit1','Digit2','Digit3','Digit4','Digit5','Digit6','Digit7','Digit8','Digit9','Digit0','Minus','Equal','Backspace','Home'],
+ ['Tab','KeyQ','KeyW','KeyE','KeyR','KeyT','KeyY','KeyU','KeyI','KeyO','KeyP','BracketLeft','BracketRight','Backslash','PageUp'],
+ ['CapsLock','KeyA','KeyS','KeyD','KeyF','KeyG','KeyH','KeyJ','KeyK','KeyL','Semicolon','Quote','Enter','PageDown'],
+ ['ShiftLeft','KeyZ','KeyX','KeyC','KeyV','KeyB','KeyN','KeyM','Comma','Period','Slash','ShiftRight','ArrowUp','End'],
+ ['ControlLeft','MetaLeft','AltLeft','Space','AltRight','ControlRight','ArrowLeft','ArrowDown','ArrowRight']]},
+ '65':{name:'65% Compact',rows:[
+ ['Escape','Digit1','Digit2','Digit3','Digit4','Digit5','Digit6','Digit7','Digit8','Digit9','Digit0','Minus','Equal','Backspace','Delete'],
+ ['Tab','KeyQ','KeyW','KeyE','KeyR','KeyT','KeyY','KeyU','KeyI','KeyO','KeyP','BracketLeft','BracketRight','Backslash','PageUp'],
+ ['CapsLock','KeyA','KeyS','KeyD','KeyF','KeyG','KeyH','KeyJ','KeyK','KeyL','Semicolon','Quote','Enter','PageDown'],
+ ['ShiftLeft','KeyZ','KeyX','KeyC','KeyV','KeyB','KeyN','KeyM','Comma','Period','Slash','ShiftRight','ArrowUp','End'],
+ ['ControlLeft','MetaLeft','AltLeft','Space','AltRight','ControlRight','ArrowLeft','ArrowDown','ArrowRight','Home']]},
+ '60%':{name:'60% Compact',rows:[
+ ['Escape','Digit1','Digit2','Digit3','Digit4','Digit5','Digit6','Digit7','Digit8','Digit9','Digit0','Minus','Equal','Backspace'],
+ ['Tab','KeyQ','KeyW','KeyE','KeyR','KeyT','KeyY','KeyU','KeyI','KeyO','KeyP','BracketLeft','BracketRight','Backslash'],
+ ['CapsLock','KeyA','KeyS','KeyD','KeyF','KeyG','KeyH','KeyJ','KeyK','KeyL','Semicolon','Quote','Enter'],
+ ['ShiftLeft','KeyZ','KeyX','KeyC','KeyV','KeyB','KeyN','KeyM','Comma','Period','Slash','ShiftRight'],
+ ['ControlLeft','MetaLeft','AltLeft','Space','AltRight','ContextMenu','ControlRight']]},
+ laptop:{name:'Laptop',rows:[
+ ['Escape','F1','F2','F3','F4','F5','F6','F7','F8','F9','F10','F11','F12'],
+ ['Backquote','Digit1','Digit2','Digit3','Digit4','Digit5','Digit6','Digit7','Digit8','Digit9','Digit0','Minus','Equal','Backspace'],
+ ['Tab','KeyQ','KeyW','KeyE','KeyR','KeyT','KeyY','KeyU','KeyI','KeyO','KeyP','BracketLeft','BracketRight','Backslash'],
+ ['CapsLock','KeyA','KeyS','KeyD','KeyF','KeyG','KeyH','KeyJ','KeyK','KeyL','Semicolon','Quote','Enter'],
+ ['ShiftLeft','KeyZ','KeyX','KeyC','KeyV','KeyB','KeyN','KeyM','Comma','Period','Slash','ShiftRight'],
+ ['ControlLeft','MetaLeft','AltLeft','Space','AltRight','ControlRight','ArrowLeft','ArrowDown','ArrowRight']] }
+};
+const labels={Escape:'Esc',Backspace:'Backspace',CapsLock:'Caps',ControlLeft:'Ctrl',ControlRight:'Ctrl',MetaLeft:'Win',MetaRight:'Win',AltLeft:'Alt',AltRight:'Alt',ContextMenu:'Menu',Space:'Space',ArrowUp:'↑',ArrowDown:'↓',ArrowLeft:'←',ArrowRight:'→',PrintScreen:'PrtSc',ScrollLock:'ScrLk',Pause:'Pause',Insert:'Ins',Delete:'Del',PageUp:'PgUp',PageDown:'PgDn',Home:'Home',End:'End',NumLock:'Num',NumpadDivide:'/',NumpadMultiply:'*',NumpadSubtract:'−',NumpadAdd:'+',NumpadEnter:'Enter',NumpadDecimal:'.',ShiftLeft:'Shift',ShiftRight:'Shift',BracketLeft:'[',BracketRight:']',Backslash:'\\',Backquote:'`',Minus:'-',Equal:'=',Semicolon:';',Quote:"'",Comma:',',Period:'.',Slash:'/'};
+let tested=new Set(),pressed=new Set(),events=0,startedAt=0,firstInputAt=0,sound=false,audio=null,history=[];
+const keyText=code=>labels[code]||code.replace(/^Key/,'').replace(/^Digit/,'').replace(/^Numpad/,'Num ');
+function widthClass(code){if(['Backspace','Tab','CapsLock','Enter','ShiftLeft','ShiftRight','ControlLeft','ControlRight','MetaLeft','MetaRight','AltLeft','AltRight'].includes(code))return 'wide';if(code==='Space')return 'space';if(['NumpadAdd','NumpadEnter'].includes(code))return 'wide';return ''}
+function allCodes(){return [...new Set(models[$('modelSelect').value].rows.flat())]}
+function renderKeyboard(){
+ const model=models[$('modelSelect').value],iso=$('layoutSelect').value==='iso';
+ $('kbMain').innerHTML='';
+ model.rows.forEach((row,rowIndex)=>{
+   const line=document.createElement('div');line.className='key-row';
+   row.forEach((code,i)=>{
+     if(iso && code==='Backslash' && rowIndex===1)return;
+     const el=document.createElement('div');el.className='key '+widthClass(code);el.dataset.code=code;el.textContent=keyText(code);el.title=code;
+     if(pressed.has(code))el.classList.add('active');else if(tested.has(code))el.classList.add('tested');
+     line.appendChild(el);
+   });
+   if(iso && rowIndex===2){const extra=document.createElement('div');extra.className='key';extra.dataset.code='Backslash';extra.textContent='\\';extra.title='Backslash';line.appendChild(extra)}
+   if(iso && rowIndex===4){const extra=document.createElement('div');extra.className='key';extra.dataset.code='IntlBackslash';extra.textContent='< >';extra.title='IntlBackslash';line.appendChild(extra)}
+   $('kbMain').appendChild(line);
+ });
+ $('modelCaption').textContent=model.name+' · '+$('layoutSelect').selectedOptions[0].text;
+ updateStats();
+}
+function updateStats(){
+ const total=allCodes().length,done=allCodes().filter(c=>tested.has(c)).length;
+ $('testedCount').textContent=done+' / '+total;$('pressedCount').textContent=pressed.size;
+ $('coverage').textContent=Math.round(done/Math.max(total,1)*100)+'%';
+ $('speed').innerHTML=(firstInputAt?Math.round(events/Math.max((Date.now()-firstInputAt)/60000,1/60)):0)+' <small style="font-size:12px;color:var(--muted)">KPM</small>';
+}
+function toast(message){const t=$('toast');t.textContent=message;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1800)}
+function playClick(){if(!sound)return;try{audio=audio||new(window.AudioContext||window.webkitAudioContext)();if(audio.state==='suspended')audio.resume();const o=audio.createOscillator(),g=audio.createGain();o.type='triangle';o.frequency.value=720;g.gain.setValueAtTime(.035,audio.currentTime);g.gain.exponentialRampToValueAtTime(.001,audio.currentTime+.035);o.connect(g);g.connect(audio.destination);o.start();o.stop(audio.currentTime+.04)}catch(e){}}
+function addHistory(code){history.unshift({code,time:new Date()});history=history.slice(0,70);$('history').innerHTML='';history.forEach(item=>{const el=document.createElement('span');el.className='log-item';el.textContent=keyText(item.code);el.title=item.code+' · '+item.time.toLocaleTimeString();$('history').appendChild(el)});$('historyTotal').textContent=events+' events'}
+function handleDown(e){
+ if(e.repeat)return;
+ const code=e.code;if(!code)return;
+ if(['Tab','AltLeft','AltRight','F1','F2','F3','F4','F5','F6','F7','F8','F9','F10','F11','F12','PageUp','PageDown','Home','End','ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Space'].includes(code))e.preventDefault();
+ if(!firstInputAt)firstInputAt=Date.now();events++;pressed.add(code);tested.add(code);playClick();
+ document.querySelectorAll('.key[data-code="'+CSS.escape(code)+'"]').forEach(k=>k.classList.add('active','tested'));
+ $('connection').textContent='Input detected';$('connection').className='status-good';$('response').textContent='Responding';$('response').className='status-good';$('lastKey').textContent=keyText(code);
+ addHistory(code);updateStats();
+}
+function handleUp(e){pressed.delete(e.code);document.querySelectorAll('.key[data-code="'+CSS.escape(e.code)+'"]').forEach(k=>k.classList.remove('active'));$('pressedCount').textContent=pressed.size}
+window.addEventListener('keydown',handleDown);window.addEventListener('keyup',handleUp);
+// Disable right-click context menu and copying/selecting page content.
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.addEventListener('copy', e => { e.preventDefault(); toast('Copying is disabled on this page'); });
+document.addEventListener('cut', e => e.preventDefault());
+document.addEventListener('selectstart', e => e.preventDefault());
+document.addEventListener('dragstart', e => e.preventDefault());
+window.addEventListener('blur',()=>{pressed.clear();document.querySelectorAll('.key.active').forEach(k=>k.classList.remove('active'));updateStats()});
+$('modelSelect').addEventListener('change',renderKeyboard);$('layoutSelect').addEventListener('change',renderKeyboard);
+$('themeBtn').addEventListener('click',()=>{document.body.classList.toggle('light');$('themeBtn').textContent=document.body.classList.contains('light')?'☾ Dark mode':'☼ Light mode'});
+$('soundBtn').addEventListener('click',()=>{sound=!sound;$('soundBtn').textContent='Sound: '+(sound?'On':'Off');$('soundBtn').setAttribute('aria-pressed',String(sound));if(sound)playClick()});
+$('clearBtn').addEventListener('click',()=>{history=[];$('history').innerHTML='<span class="empty-state">History cleared. Continue testing your keyboard.</span>';$('historyTotal').textContent='0 events'});
+$('resetBtn').addEventListener('click',()=>{tested.clear();pressed.clear();events=0;firstInputAt=0;startedAt=Date.now();history=[];renderKeyboard();$('history').innerHTML='<span class="empty-state">Test reset. Press any key to begin.</span>';$('historyTotal').textContent='0 events';$('connection').textContent='Waiting for input';$('response').textContent='Not tested';$('lastKey').textContent='—';$('stuck').textContent='No stuck keys';toast('Test session reset')});
+setInterval(()=>{if(firstInputAt){const sec=Math.floor((Date.now()-firstInputAt)/1000);$('duration').textContent=String(Math.floor(sec/60)).padStart(2,'0')+':'+String(sec%60).padStart(2,'0')}updateStats()},1000);
+renderKeyboard();
+})();
+</script>
+
+<script id="uniBarScript">
+function toggleUniTheme(){
+  var l=document.body.classList.toggle('u-light');
+  document.getElementById('uniTheme').innerHTML=l?'&#127769; Dark':'&#9728;&#65039; Light';
+  localStorage.setItem('uniTheme',l?'light':'dark');
+}
+(function(){
+  if(localStorage.getItem('uniTheme')==='light'){
+    document.body.classList.add('u-light');
+    var b=document.getElementById('uniTheme');
+    if(b)b.innerHTML='&#127769; Dark';
+  }
+})();
+</script>
+</body>
+</html>

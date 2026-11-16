@@ -1,0 +1,264 @@
+﻿<!DOCTYPE html>
+<html lang="ur">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="./favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+  <link rel="manifest" href="manifest.json">
+    <title>Length Unit Converter - Shaiekh Fielsouf Ansari</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+            border-radius: 16px;
+            padding: 25px;
+            width: 100%;
+            max-width: 550px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+            color: #ffd700;
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 0.9rem;
+            color: #ddd;
+        }
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.95);
+            color: #333;
+            outline: none;
+        }
+        .results-box {
+            margin-top: 20px;
+            background: rgba(0, 0, 0, 0.25);
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .results-box strong {
+            color: #00ffcc;
+        }
+        .owner-box {
+            text-align: center;
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            font-size: 0.9rem;
+            width: 100%;
+            max-width: 550px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .owner-box span {
+            color: #00ffcc;
+            font-weight: bold;
+        }
+    
+</style>
+
+<style id="uniBarStyle">
+/* ===== UNIFIED NAV BAR ===== */
+#uniBar {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+#uniHome, #uniTheme {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 11px 19px;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform .25s, box-shadow .25s;
+  text-decoration: none;
+  font-family: inherit;
+  letter-spacing: .01em;
+  white-space: nowrap;
+  user-select: none;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.45);
+}
+#uniHome {
+  background: linear-gradient(135deg,#f1d79d,#d9b56d);
+  color: #17130b;
+  border: 0;
+}
+#uniTheme {
+  background: rgba(255,255,255,0.10);
+  color: #f4f1e9;
+  border: 1px solid rgba(255,255,255,0.18);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+#uniHome:hover, #uniTheme:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.5);
+}
+/* Light Mode */
+body.u-light { filter: invert(1) hue-rotate(180deg); }
+body.u-light img,
+body.u-light video,
+body.u-light canvas { filter: invert(1) hue-rotate(180deg); }
+body.u-light #uniTheme {
+  background: rgba(0,0,0,0.08);
+  color: #202738;
+  border-color: rgba(0,0,0,0.15);
+}
+@media(max-width:480px){
+  #uniBar { top:10px; right:10px; gap:7px; }
+  #uniHome, #uniTheme { padding:9px 13px; font-size:12px; }
+}
+</style></head>
+`<body>
+<div id="uniBar"><a id="uniHome" href="./freetools.html">&#8592; Free Tools</a><button id="uniTheme" onclick="toggleUniTheme()">&#9728;&#65039; Light</button></div>
+
+
+<div class="container">
+    
+    <h2>Lambai Unit Converter Calculator</h2>
+    
+    <div class="input-group">
+        <label for="value">Value Darj Karein:</label>
+        <input type="number" id="value" placeholder="Yahan likhein..." oninput="convertUnits()">
+    </div>
+
+    <div class="input-group">
+        <label for="unit">Select Unit:</label>
+        <select id="unit" onchange="convertUnits()">
+            <option value="mm">Millimeter (mm)</option>
+            <option value="soot">Soot</option>
+            <option value="cm">Centimeter (cm)</option>
+            <option value="inch">Inch</option>
+            <option value="foot">Foot / Feet</option>
+            <option value="gaz">Gaz / Yard</option>
+            <option value="meter">Meter</option>
+            <option value="km">Kilometer</option>
+        </select>
+    </div>
+
+    <div class="results-box" id="results">
+        Natija dekhne ke liye upar value darj karein...
+    </div>
+</div>
+
+<div class="owner-box">
+    <p><strong>Owner:</strong> Shaiekh Fielsouf Ansari</p>
+    <p>Contact: <span>03331255512</span> | <span>03111855512</span></p>
+</div>
+
+<script>
+    // Disable right click, copy, cut, and paste
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    document.addEventListener('copy', e => e.preventDefault());
+    document.addEventListener('cut', e => e.preventDefault());
+    document.addEventListener('paste', e => e.preventDefault());
+
+    function convertUnits() {
+        let val = parseFloat(document.getElementById('value').value);
+        let unit = document.getElementById('unit').value;
+        let resultsDiv = document.getElementById('results');
+
+        if (isNaN(val)) {
+            resultsDiv.innerHTML = "Baraye meharbani koi valid number darj karein.";
+            return;
+        }
+
+        // Convert input to meters as base unit
+        let meters = 0;
+        switch(unit) {
+            case 'mm': meters = val / 1000; break;
+            case 'soot': meters = val * 0.003175; break; // 1 inch = 25.4mm, 1 soot = 3.175mm
+            case 'cm': meters = val / 100; break;
+            case 'inch': meters = val * 0.0254; break;
+            case 'foot': meters = val * 0.3048; break;
+            case 'gaz': meters = val * 0.9144; break;
+            case 'meter': meters = val; break;
+            case 'km': meters = val * 1000; break;
+        }
+
+        // Calculate all units from meters
+        let mm = meters * 1000;
+        let soot = meters / 0.003175;
+        let cm = meters * 100;
+        let inch = meters / 0.0254;
+        let foot = meters / 0.3048;
+        let gaz = meters / 0.9144;
+        let m = meters;
+        let km = meters / 1000;
+
+        resultsDiv.innerHTML = `
+            <strong>Tamam Unit Hisaab:</strong><br>
+            • Millimeter (mm): <strong>${mm.toFixed(2)}</strong> mm<br>
+            • Soot: <strong>${soot.toFixed(2)}</strong> Soot<br>
+            • Centimeter (cm): <strong>${cm.toFixed(2)}</strong> cm<br>
+            • Inch: <strong>${inch.toFixed(2)}</strong> Inches<br>
+            • Foot: <strong>${foot.toFixed(2)}</strong> Feet<br>
+            • Gaz: <strong>${gaz.toFixed(4)}</strong> Gaz<br>
+            • Meter: <strong>${m.toFixed(4)}</strong> Meters<br>
+            • Kilometer: <strong>${km.toFixed(6)}</strong> km
+        `;
+    }
+</script>
+
+
+<script id="uniBarScript">
+function toggleUniTheme(){
+  var l=document.body.classList.toggle('u-light');
+  document.getElementById('uniTheme').innerHTML=l?'&#127769; Dark':'&#9728;&#65039; Light';
+  localStorage.setItem('uniTheme',l?'light':'dark');
+}
+(function(){
+  if(localStorage.getItem('uniTheme')==='light'){
+    document.body.classList.add('u-light');
+    var b=document.getElementById('uniTheme');
+    if(b)b.innerHTML='&#127769; Dark';
+  }
+})();
+</script>
+</body>
+</html>
