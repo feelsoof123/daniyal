@@ -248,6 +248,83 @@ body.light-theme .nav-links.open {
   }
 }
 
+/* MOBILE WIDTH FIX */
+@media (max-width: 700px) {
+
+  html, body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: clip;
+  }
+
+  .container {
+    width: calc(100% - 32px);
+    max-width: 100%;
+  }
+
+  .nav {
+    width: 100%;
+    gap: 6px;
+    justify-content: space-between;
+  }
+
+  .brand {
+    min-width: 0;
+    flex-shrink: 1;
+    font-size: 12px;
+    gap: 6px;
+  }
+
+  .brand-mark {
+    flex-shrink: 0;
+  }
+
+  .header-actions {
+    flex-shrink: 0;
+    gap: 5px;
+  }
+
+  .theme-toggle {
+    padding: 7px 8px;
+    font-size: 11px;
+  }
+
+  .language-switch {
+    flex-shrink: 0;
+  }
+
+  .hero-grid,
+  .about-grid,
+  .contact-grid {
+    min-width: 0;
+  }
+
+  .hero-copy,
+  .hero-art,
+  .card,
+  .form-card {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .showcase {
+    max-width: 88%;
+  }
+
+  .floating-tag {
+    max-width: 85%;
+    font-size: 11px;
+  }
+
+  img, video, iframe {
+    max-width: 100%;
+  }
+
+  h1, h2, h3, p {
+    overflow-wrap: anywhere;
+  }
+}
+
   </style>
 
 <!-- WhatsApp Link Preview - SD Logo -->
