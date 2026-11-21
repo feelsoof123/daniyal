@@ -7,24 +7,26 @@
   "use strict";
 
   // 1. Mobile Menu Toggle
-  function initMobileMenu() {
-    const toggleBtn = document.querySelector(".menu-toggle");
-    const navLinks = document.querySelector(".nav-links");
-    if (!toggleBtn || !navLinks) return;
+  
+function initMobileMenu() {
+  const toggleBtn = document.querySelector(".menu-toggle");
+  const navLinks = document.querySelector(".nav-links");
 
-    toggleBtn.addEventListener("click", function () {
-      const isVisible = navLinks.style.display === "flex";
-      navLinks.style.display = isVisible ? "none" : "flex";
-      navLinks.style.flexDirection = "column";
-      navLinks.style.position = "absolute";
-      navLinks.style.top = "82px";
-      navLinks.style.left = "0";
-      navLinks.style.width = "100%";
-      navLinks.style.background = "rgba(9, 13, 24, 0.98)";
-      navLinks.style.padding = "25px 20px";
-      navLinks.style.borderBottom = "1px solid rgba(255, 255, 255, 0.1)";
+  if (!toggleBtn || !navLinks) return;
+
+  toggleBtn.addEventListener("click", function () {
+    const isOpen = navLinks.style.display === "flex";
+
+    navLinks.style.display = isOpen ? "none" : "flex";
+  });
+
+  navLinks.querySelectorAll("a").forEach(function (link) {
+    link.addEventListener("click", function () {
+      navLinks.style.display = "none";
     });
-  }
+  });
+}
+
 
   // 2. Dynamic Year Updater
   function updateYear() {

@@ -1,9 +1,8 @@
-# Sheikh Daniyal Ansari — Official Website
-
-> **Custom Website Development, Engineering Utilities & Free Esoteric Calculators**  
-> **Author & Developer:** Sheikh Daniyal Ansari  
-> **Live Site URL:** [https://shaiekhfielsoufansari-droid.github.io/daniya-website/](https://shaiekhfielsoufansari-droid.github.io/daniya-website/)
-
+Sheikh Daniyal Ansari — Official Website
+Custom Website Development, Engineering Utilities & Free Esoteric Calculators
+Author & Developer: Sheikh Daniyal Ansari
+Live Site URL: https://feelsoof123.github.io/daniyal/
+GitHub Repository: https://github.com/feelsoof123/daniyal
 ---
 
 ## 📌 Project Overview
@@ -91,41 +90,31 @@ Daniya website/
 
 ## 🚀 Deploy to GitHub Pages
 
-When you are ready to host the website on GitHub Pages:
+This project is hosted using GitHub Pages.
 
-```bash
-# 1. Initialize git
-git init
-
-# 2. Add all files
-git add .
-
-# 3. Commit
-git commit -m "Initial commit - Sheikh Daniyal Ansari Official Website"
-
-# 4. Set branch to main
-git branch -M main
-
-# 5. Connect your GitHub repository
-git remote add origin https://github.com/<your-username>/daniya-website.git
-
-# 6. Push to GitHub
-git push -u origin main
-```
-
-### Enable GitHub Pages:
-1. Go to repository **Settings → Pages**.
-2. Under **Build and deployment**, set **Source** to **Deploy from a branch**.
-3. Choose branch: `main` and folder: `/ (root)`.
-4. Click **Save**. Your site will be live within 1–2 minutes!
+### Upload Project Using GitHub Website
+Open the repository: https://github.com/feelsoof123/daniyal
+Click Add file → Upload files.
+Upload all project files and folders.
+Ensure index.html is in the repository root.
+Click Commit changes.
+### Enable GitHub Pages
+Open repository Settings → Pages.
+Under Build and deployment, select Deploy from a branch.
+Choose branch: main.
+Choose folder: / (root).
+Click Save.
+### Website Links
+Live Website: https://feelsoof123.github.io/daniyal/
+GitHub Repository: https://github.com/feelsoof123/daniyal
 
 ---
 
 ## 📞 Contact Information
 
 - **Developer:** Sheikh Daniyal Ansari  
-- **Phone:** `0311-1855512`  
-- **WhatsApp:** `0300-0210419` / `0311-1855512`  
+- **Phone:** `0333-1255512` / `0300-0210419
+- **WhatsApp:** `0311-1855512`  
 - **WhatsApp Direct:** [https://wa.me/923111855512](https://wa.me/923111855512)
 
 ---
